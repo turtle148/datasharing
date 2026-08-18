@@ -1,5 +1,6 @@
 import { useSyncExternalStore } from 'react'
 import { seed } from './seed'
+import { storage } from './storage'
 import { seedRequests } from './seedRequests'
 import type { RequestStatus, ServiceRequest } from './types'
 
@@ -11,11 +12,7 @@ let requests: ServiceRequest[] = read()
 let lastRaw = rawFromStorage()
 
 function rawFromStorage(): string | null {
-  try {
-    return window.localStorage.getItem(KEY)
-  } catch {
-    return null
-  }
+  return storage.get(KEY)
 }
 
 function read(): ServiceRequest[] {
@@ -31,12 +28,8 @@ function read(): ServiceRequest[] {
 
 function write(next: ServiceRequest[]) {
   requests = next
-  try {
-    lastRaw = JSON.stringify(next)
-    window.localStorage.setItem(KEY, lastRaw)
-  } catch {
-    /* private mode — the demo still runs, it just won't survive a reload */
-  }
+  lastRaw = JSON.stringify(next)
+  storage.set(KEY, lastRaw)
   emit()
 }
 
@@ -47,7 +40,9 @@ function emit() {
 /**
  * The guest is on a phone and the agency is on a laptop, so the console and the
  * portal are two separate windows. Both watch the same key: `storage` fires
- * across tabs, and the poll covers the tab that made the change itself.
+ * across tabs, and the poll covers the tab that made the change itself. Where
+ * browser storage is unavailable the store is memory-backed and this only
+ * keeps the one window in step.
  */
 function subscribe(listener: () => void) {
   if (listeners.size === 0) startWatching()

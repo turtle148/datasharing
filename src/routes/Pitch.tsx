@@ -18,7 +18,9 @@ export default function Pitch() {
       <div className="mt-12 rounded-3xl bg-paper p-5 shadow-none">
         <QrCode value={url} size={272} />
       </div>
-      <p className="tnum mt-4 text-[15px] text-deep/50">{url}</p>
+      <Link to={`/s/${DEMO_TOKEN}`} className="tnum mt-4 text-[15px] text-deep/50">
+        {url}
+      </Link>
 
       <Link to="/agency" className="mt-10 text-[15px] text-water underline underline-offset-4">
         Agency console

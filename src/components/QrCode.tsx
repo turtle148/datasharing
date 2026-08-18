@@ -11,9 +11,21 @@ export function qrDataUrl(value: string, width = 1024): Promise<string> {
   return QRCode.toDataURL(value, { ...options, width })
 }
 
-/** Downloads the QR as a PNG — one click, one file, printable for the folder. */
+/**
+ * Downloads the QR as a PNG — one click, one file, printable for the folder.
+ * Inside the Claude artifact viewer an <a download> is inert, so the file goes
+ * through the host's own save prompt when that is what we're running in.
+ */
 export async function downloadQr(value: string, filename: string) {
   const url = await qrDataUrl(value)
+
+  const downloads = await window.claude?.use('downloads').catch(() => null)
+  if (downloads) {
+    const data = await (await fetch(url)).blob()
+    await downloads.save({ filename, data }).catch(() => undefined)
+    return
+  }
+
   const link = document.createElement('a')
   link.href = url
   link.download = filename

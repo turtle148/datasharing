@@ -53,6 +53,20 @@ and the laptop for the console moment. A real cross-device demo is about fifty
 lines of backend (one shared JSON blob keyed by stay token) whenever it's worth
 building.
 
+### Single-file build (for a hosted preview)
+
+```bash
+npm run build:artifact          # dist-artifact/artifact.html — one self-contained file
+node build-artifact-page.mjs    # dist-artifact/limonaia.html — same page, body fragment
+```
+
+Everything is inlined, including the fonts, and routes move to the hash
+(`#/s/villa-serena-0811`) so the whole demo serves from a single URL. Two things
+degrade there: sandboxed hosts block browser storage, so the store falls back to
+memory — state survives moving between routes in the tab but not a reload — and
+a strict CSP blocks the provider photo CDN, so every provider shows their
+initial. Use `npm run dev` for the real thing.
+
 ## How it is put together
 
 React 19 + Vite + Tailwind v4 + TypeScript, one repo, no backend.
@@ -63,6 +77,7 @@ src/lib/seed.ts      the agency, 3 properties, 3 stays, 10 providers, 15 service
 src/lib/pricing.ts   one estimator for every service; live sheet estimates
 src/lib/store.ts     localStorage + cross-tab sync, exposed as a React store
 src/routes/          GuestPortal, Agency, Pitch
+src/lib/storage.ts   localStorage where it exists, memory where it doesn't
 src/components/      ServiceCard, RequestSheet, FieldInput, RequestsTray, QrCode
 ```
 

@@ -295,7 +295,7 @@ function PropertyRow({ property }: { property: Property }) {
               <button
                 type="button"
                 onClick={() => {
-                  navigator.clipboard?.writeText(url)
+                  navigator.clipboard?.writeText(url).catch(() => undefined)
                   setCopied(true)
                   window.setTimeout(() => setCopied(false), 1600)
                 }}
