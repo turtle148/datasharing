@@ -1,0 +1,11 @@
+{
+  "name": "Guest services",
+  "short_name": "Guest services",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#EDF1EF",
+  "theme_color": "#EDF1EF",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
