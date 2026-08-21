@@ -8,14 +8,14 @@ export default function ResetDemo({ className = '' }: { className?: string }) {
   if (asking) {
     return (
       <span className={`text-[14px] text-deep/60 ${className}`}>
-        Clear every request and start again?{' '}
+        Clear every request?{' '}
         <button
           type="button"
           onClick={() => {
             resetDemo()
             setAsking(false)
           }}
-          className="cursor-pointer text-clay underline underline-offset-4"
+          className="cursor-pointer text-clay underline underline-offset-2"
         >
           Reset
         </button>{' '}
@@ -23,7 +23,7 @@ export default function ResetDemo({ className = '' }: { className?: string }) {
         <button
           type="button"
           onClick={() => setAsking(false)}
-          className="cursor-pointer underline underline-offset-4"
+          className="cursor-pointer underline underline-offset-2"
         >
           Keep
         </button>
@@ -35,7 +35,7 @@ export default function ResetDemo({ className = '' }: { className?: string }) {
     <button
       type="button"
       onClick={() => setAsking(true)}
-      className={`cursor-pointer text-[14px] text-deep/40 underline underline-offset-4 ${className}`}
+      className={`cursor-pointer text-[14px] text-deep/50 underline underline-offset-2 ${className}`}
     >
       Reset demo
     </button>

@@ -1,4 +1,4 @@
-export const PRODUCT_NAME = 'Limonaia'
+export const PRODUCT_NAME = 'Handled'
 
 let hashRouting = false
 

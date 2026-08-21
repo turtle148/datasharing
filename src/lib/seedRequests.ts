@@ -1,7 +1,7 @@
 import { stays } from './seed'
 import type { ServiceRequest } from './types'
 
-const [, oliva, porto] = stays
+const [, porto, oliva] = stays
 
 /**
  * A little history, so the agency console has something in it the moment you
@@ -14,8 +14,9 @@ export const seedRequests: ServiceRequest[] = [
     serviceId: 'groceries',
     fields: {
       date: oliva.arrival,
-      needs: ['gluten_free', 'bread_daily'],
-      notes: 'Coffee, milk, pasta, fruit, and something for a 9-year-old who only eats plain things.',
+      people: 3,
+      needs: ['milk_bread', 'fruit', 'coffee'],
+      notes: 'Something for a 9-year-old who only eats plain things. No nuts.',
     },
     estimate: 54,
     status: 'scheduled',
@@ -42,7 +43,7 @@ export const seedRequests: ServiceRequest[] = [
     stayToken: porto.token,
     serviceId: 'boat',
     fields: {
-      date: addDays(porto.arrival, 2),
+      date: addDays(porto.arrival, 3),
       length: 'half_pm',
       people: 4,
       notes: 'We would like to swim somewhere quiet rather than see towns.',
@@ -56,7 +57,7 @@ export const seedRequests: ServiceRequest[] = [
     stayToken: porto.token,
     serviceId: 'chef-dinner',
     fields: {
-      date: addDays(porto.arrival, 1),
+      date: addDays(porto.arrival, 2),
       time: '20:00',
       adults: 4,
       children: 0,
@@ -78,7 +79,7 @@ export const seedRequests: ServiceRequest[] = [
     },
     estimate: 70,
     status: 'requested',
-    createdAt: daysAgo(1),
+    createdAt: daysAgo(2),
   },
 ]
 

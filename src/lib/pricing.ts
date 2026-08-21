@@ -22,6 +22,8 @@ function initialValue(field: Field, stay: Stay): string | number | string[] {
       return clampStepper(field, stay.adults)
     case 'children':
       return clampStepper(field, stay.children.length)
+    case 'party':
+      return clampStepper(field, stay.adults + stay.children.length)
     case 'children_ages':
       return stay.children.map((c) => c.age).join(' and ')
     case 'arrival':
@@ -105,10 +107,21 @@ export function headlinePrice(service: Service): string {
   }
 }
 
+/** Shares round down, the way they are shown in the console (€54 → €5). */
 export function commission(gross: number, split: { provider: number; agency: number; platform: number }) {
   return {
-    provider: Math.round(gross * split.provider),
-    agency: Math.round(gross * split.agency),
-    platform: Math.round(gross * split.platform),
+    provider: Math.floor(gross * split.provider),
+    agency: Math.floor(gross * split.agency),
+    platform: Math.floor(gross * split.platform),
   }
+}
+
+/**
+ * What the provider will spend on your behalf — the shopping bill, not the fee.
+ * Shown beside the estimate, never folded into it.
+ */
+export function variableExtra(service: Service, values: FieldValues): number {
+  if (!service.variableExtra) return 0
+  const units = num(values[service.variableExtra.perUnitField], 1)
+  return Math.max(0, Math.round(units * service.variableExtra.perUnit))
 }

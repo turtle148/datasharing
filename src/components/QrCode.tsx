@@ -3,7 +3,7 @@ import QRCode from 'qrcode'
 
 const options = {
   margin: 1,
-  color: { dark: '#0E2E2A', light: '#FFFFFF' },
+  color: { dark: '#0E2622', light: '#FCFDFC' },
   errorCorrectionLevel: 'M' as const,
 }
 
@@ -62,7 +62,7 @@ export default function QrCode({
       width={size}
       height={size}
       style={{ width: size, height: size }}
-      className={`rounded-xl bg-paper ${className}`}
+      className={`bg-paper ${className}`}
     />
   )
 }

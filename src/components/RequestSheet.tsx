@@ -1,10 +1,17 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
-import Avatar from './Avatar'
+import { useMemo, useState } from 'react'
+import ProviderSlot from './ProviderSlot'
 import FieldInput from './FieldInput'
+import Sheet from './Sheet'
 import { money } from '../lib/format'
-import { estimate, headlinePrice, initialValues, type FieldValues } from '../lib/pricing'
+import {
+  estimate,
+  headlinePrice,
+  initialValues,
+  variableExtra,
+  type FieldValues,
+} from '../lib/pricing'
 import { addRequest } from '../lib/store'
-import type { Provider, Service, Stay } from '../lib/types'
+import type { Field, Provider, Service, Stay } from '../lib/types'
 
 export default function RequestSheet({
   service,
@@ -20,21 +27,9 @@ export default function RequestSheet({
   onSubmitted: () => void
 }) {
   const [values, setValues] = useState<FieldValues>(() => initialValues(service, stay))
-  const panel = useRef<HTMLDivElement>(null)
   const total = useMemo(() => estimate(service, values), [service, values])
-
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
-    }
-    document.addEventListener('keydown', onKey)
-    document.body.style.overflow = 'hidden'
-    panel.current?.focus()
-    return () => {
-      document.removeEventListener('keydown', onKey)
-      document.body.style.overflow = ''
-    }
-  }, [onClose])
+  const extra = useMemo(() => variableExtra(service, values), [service, values])
+  const rows = useMemo(() => groupFields(service.fieldSchema), [service])
 
   function submit(e: React.FormEvent) {
     e.preventDefault()
@@ -43,78 +38,97 @@ export default function RequestSheet({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center">
-      <button
-        type="button"
-        aria-label="Close"
-        onClick={onClose}
-        className="animate-scrim absolute inset-0 cursor-pointer bg-deep/40"
-      />
-
-      <div
-        ref={panel}
-        role="dialog"
-        aria-modal="true"
-        aria-label={service.title}
-        tabIndex={-1}
-        className="animate-sheet-up relative flex max-h-[92vh] w-full max-w-[480px] flex-col rounded-t-3xl bg-paper"
-      >
-        <div className="shrink-0 px-5 pt-3 pb-1">
-          <div className="mx-auto h-1 w-10 rounded-full bg-deep/15" />
-        </div>
-
-        <div className="min-h-0 flex-1 overflow-y-auto px-5 pb-5">
-          <h2 className="mt-3 text-xl leading-snug font-medium text-deep">{service.title}</h2>
-
-          <div className="mt-4 flex gap-3">
-            <Avatar provider={provider} size={52} />
-            <div>
-              <p className="text-[15px] text-deep/70">
-                <span className="font-medium text-deep/85">{provider.firstName}</span> ·{' '}
-                {provider.role}, {provider.town}
-              </p>
-              <p className="mt-1 text-[13px] text-deep/50">
-                Verified: {provider.verified.join(' · ')}
-              </p>
-            </div>
-          </div>
-
-          <p className="mt-4 text-deep/85">{service.description}</p>
-
-          <div className="mt-4 flex flex-wrap items-baseline gap-x-2 text-[15px]">
-            <span className="tnum font-medium text-deep">{headlinePrice(service)}</span>
-            {service.priceNote && <span className="text-deep/60">{service.priceNote}</span>}
-            <span className="text-deep/60">· {service.leadTime}</span>
-          </div>
-
-          <form id="request-form" onSubmit={submit} className="mt-6 flex flex-col gap-5">
-            {service.fieldSchema.map((field) => (
-              <FieldInput
-                key={field.id}
-                field={field}
-                value={values[field.id]}
-                stay={stay}
-                onChange={(value) => setValues((prev) => ({ ...prev, [field.id]: value }))}
-              />
-            ))}
-          </form>
-        </div>
-
-        <div className="shrink-0 border-t border-deep/10 bg-paper px-5 pt-4 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
-          <p className="text-[15px] text-deep/70">
-            <span className="tnum font-medium text-deep">Estimated {money(total)}</span>
-            {service.priceNote?.startsWith('+') ? ` ${service.priceNote}` : ''} · confirmed by{' '}
-            {provider.firstName} before anything is charged
+    <Sheet
+      label={service.title}
+      onClose={onClose}
+      footer={
+        <>
+          <p className="text-[15px] text-deep/62">
+            <span className="tnum">
+              Estimated <span className="font-semibold">{money(total)}</span>
+              {extra > 0 && (
+                <>
+                  {' '}
+                  + about <span className="font-semibold">{money(extra)}</span>{' '}
+                  {service.variableExtra?.label}
+                </>
+              )}
+            </span>{' '}
+            · confirmed by {provider.firstName} before anything is charged
           </p>
           <button
             type="submit"
             form="request-form"
-            className="mt-3 w-full cursor-pointer rounded-xl bg-water px-4 py-3.5 font-medium text-paper"
+            className="mt-3 w-full cursor-pointer rounded-control bg-water px-4 py-3.5 text-[17px] font-semibold text-paper"
           >
             Request this
           </button>
+        </>
+      }
+    >
+      <h2 className="text-[20px] leading-[1.3] font-semibold">{service.title}</h2>
+
+      <div className="mt-3.5 flex items-start gap-3 rounded-xl border border-deep/10 p-3">
+        <ProviderSlot provider={provider} size={44} />
+        <div className="min-w-0">
+          <p className="text-[15px] leading-[1.3]">
+            <span className="font-semibold">{provider.firstName}</span> · {provider.role}
+          </p>
+          <p className="mt-1 text-[14px] leading-[1.3] text-deep/55">
+            Verified: {provider.verified.join(' · ')}
+          </p>
         </div>
       </div>
-    </div>
+
+      <p className="mt-3.5 text-[17px] leading-[1.5] text-deep/78">{service.description}</p>
+
+      <p className="mt-3.5 flex flex-wrap items-baseline gap-x-2 text-[15px] text-deep/55">
+        <span className="tnum text-[17px] font-semibold text-deep">{headlinePrice(service)}</span>
+        <span>{service.leadTime}</span>
+      </p>
+
+      <div className="mt-3.5 border-t border-deep/10" />
+
+      <form id="request-form" onSubmit={submit} className="mt-4 flex flex-col gap-4">
+        {rows.map((row, i) =>
+          row.length === 1 ? (
+            <FieldInput
+              key={row[0].id}
+              field={row[0]}
+              value={values[row[0].id]}
+              stay={stay}
+              onChange={(value) => set(row[0].id, value)}
+            />
+          ) : (
+            <div key={i} className="flex gap-3">
+              {row.map((field) => (
+                <FieldInput
+                  key={field.id}
+                  field={field}
+                  value={values[field.id]}
+                  stay={stay}
+                  onChange={(value) => set(field.id, value)}
+                />
+              ))}
+            </div>
+          ),
+        )}
+      </form>
+    </Sheet>
   )
+
+  function set(id: string, value: FieldValues[string]) {
+    setValues((prev) => ({ ...prev, [id]: value }))
+  }
+}
+
+/** Fields marked `half` pair up onto one row, the way the design shows date and time. */
+function groupFields(schema: Field[]): Field[][] {
+  const rows: Field[][] = []
+  for (const field of schema) {
+    const last = rows[rows.length - 1]
+    if (field.half && last?.length === 1 && last[0].half) last.push(field)
+    else rows.push([field])
+  }
+  return rows
 }

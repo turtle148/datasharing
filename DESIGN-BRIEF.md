@@ -1,4 +1,9 @@
-# Design brief — handing Limonaia to Claude Design
+# Design brief — handing the portal to Claude Design
+
+> **Superseded.** The redesign came back as **Handled** and is implemented on
+> this branch. The delivered spec and canvas are in `design/`; this brief is
+> kept for the record, and its §7 is still the list of what makes a design
+> handoff portable into the app.
 
 Everything Claude Design needs to redesign these screens without losing what the
 build already gets right, and everything I need to port the result back into the

@@ -11,6 +11,18 @@ export function requestedSlot(request: ServiceRequest, service: Service): string
   return time ? `${formatDay(date)}, ${formatTime(time)}` : formatDay(date)
 }
 
+/** The line under the status label, in the provider's own terms. */
+export function statusNote(request: ServiceRequest, provider: Provider): string {
+  switch (request.status) {
+    case 'requested':
+      return `${provider.firstName} will confirm before anything is charged`
+    case 'confirmed':
+      return provider.confirmedNote
+    default:
+      return ''
+  }
+}
+
 export function statusLabel(
   request: ServiceRequest,
   service: Service,

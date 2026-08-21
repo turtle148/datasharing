@@ -19,6 +19,8 @@ export interface Property {
   address: string
   agencyId: string
   heroColor: string
+  /** how many of the catalogue's services this house offers */
+  servicesOn: number
 }
 
 export interface Stay {
@@ -41,6 +43,8 @@ export interface Provider {
   photo: string
   blurb: string
   verified: string[]
+  /** the line under "Confirmed by …", written in this provider's own terms */
+  confirmedNote: string
 }
 
 export type FieldType =
@@ -77,9 +81,11 @@ export interface Field {
   pricePerUnit?: number
   freeUnits?: number
   /** prefill from the stay: number of adults, children, or the children's ages */
-  prefill?: 'adults' | 'children' | 'children_ages' | 'arrival' | 'departure'
+  prefill?: 'adults' | 'children' | 'party' | 'children_ages' | 'arrival' | 'departure'
   /** option deltas on this field are charged per head/hour rather than once */
   scalesWithMultiplier?: boolean
+  /** sits beside the next field rather than on its own row */
+  half?: boolean
 }
 
 export interface Service {
@@ -101,6 +107,11 @@ export interface Service {
   fieldSchema: Field[]
   /** shown once a request exists, to build "Scheduled for …" */
   scheduleFields?: { date?: string; time?: string }
+  /**
+   * A cost the provider passes on at cost — the shopping bill, not the fee.
+   * Estimated, never added to the quoted price.
+   */
+  variableExtra?: { label: string; perUnitField: string; perUnit: number }
 }
 
 export interface ServiceRequest {

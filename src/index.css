@@ -2,34 +2,42 @@
 
 /* Self-hosted, because a demo shouldn't depend on the meeting room's wifi. */
 @font-face {
-  font-family: "Fraunces";
-  src: url("./fonts/fraunces.woff2") format("woff2");
+  font-family: "Bricolage Grotesque";
+  src: url("./fonts/bricolage-grotesque.woff2") format("woff2");
   font-weight: 400 700;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Inter Tight";
-  src: url("./fonts/inter-tight.woff2") format("woff2");
+  font-family: "Public Sans";
+  src: url("./fonts/public-sans.woff2") format("woff2");
   font-weight: 400 700;
   font-style: normal;
   font-display: swap;
 }
 
 @theme {
-  /* Lake water and lemon houses — the Garda limonaie palette. */
-  --color-deep: #0E2E2A;
-  --color-water: #1E5F56;
-  --color-stone: #EDF1EF;
-  --color-paper: #FFFFFF;
-  --color-citron: #E3C23C;
-  --color-clay: #B2543A;
+  --color-deep: #0E2622;
+  --color-water: #1A5049;
+  --color-stone: #E8EDEB;
+  --color-paper: #FCFDFC;
+  --color-citron: #C9922B;
+  --color-clay: #9E4A32;
 
-  --font-display: "Fraunces", ui-serif, Georgia, serif;
-  --font-sans: "Inter Tight", ui-sans-serif, system-ui, sans-serif;
+  /* Fixed surfaces called out by name in the design. */
+  --color-pill: #EDF2F0;
+  --color-rowfill: #EFF3F1;
+  --color-monogram: #E4EDE9;
 
-  --radius-card: 16px;
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Public Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --radius-card: 14px;
+  --radius-control: 10px;
+  --radius-sheet: 20px;
+  --radius-frame: 18px;
+  --radius-slot: 8px;
 }
 
 @layer base {
@@ -42,17 +50,17 @@
     background-color: var(--color-stone);
     color: var(--color-deep);
     font-family: var(--font-sans);
-    /* Read one-handed, in bright sun. */
     font-size: 17px;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
   }
 
-  button {
-    font: inherit;
-    color: inherit;
+  p,
+  li {
+    text-wrap: pretty;
   }
 
+  button,
   input,
   select,
   textarea {
@@ -60,37 +68,39 @@
     color: inherit;
   }
 
+  /* Depth comes from paper on stone, never elevation — the ring is the one shadow. */
   :focus-visible {
-    outline: 2px solid var(--color-water);
-    outline-offset: 2px;
+    outline: 1px solid var(--color-water);
+    outline-offset: 0;
+    box-shadow: 0 0 0 2px rgb(26 80 73 / 0.14);
   }
 }
 
 @utility font-display {
   font-family: var(--font-display);
-  /* Fraunces on its soft optical setting — never the wonky default. */
-  font-variation-settings: "SOFT" 100, "WONK" 0;
 }
 
 @utility tnum {
   font-variant-numeric: tabular-nums;
 }
 
-@utility hairline {
-  border: 1px solid color-mix(in srgb, var(--color-deep) 12%, transparent);
+/* The photo slot before a real photograph is dropped in. */
+@utility photo-hatch {
+  background-image: repeating-linear-gradient(45deg, #E8EDEB 0 3px, #F4F7F5 3px 6px);
 }
 
-/* Motion: exactly two moments. */
 @keyframes sheet-up {
   from {
-    transform: translateY(100%);
+    transform: translateY(24px);
+    opacity: 0;
   }
   to {
-    transform: translateY(0);
+    transform: none;
+    opacity: 1;
   }
 }
 
-@keyframes fade-in {
+@keyframes scrim-in {
   from {
     opacity: 0;
   }
@@ -101,12 +111,12 @@
 
 @keyframes settle {
   from {
-    opacity: 0.55;
-    transform: translateY(-2px);
+    transform: translateY(-4px);
+    opacity: 0.4;
   }
   to {
+    transform: none;
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
@@ -115,7 +125,7 @@
 }
 
 @utility animate-scrim {
-  animation: fade-in 200ms ease-out;
+  animation: scrim-in 200ms ease-out;
 }
 
 @utility animate-settle {

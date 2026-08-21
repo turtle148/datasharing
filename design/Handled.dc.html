@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<![CDATA[<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  body { margin:0; background:#DCE3E0; font-family:"Public Sans", system-ui, sans-serif; -webkit-font-smoothing:antialiased; }
+  a { color:#1A5049; text-decoration-thickness:1px; text-underline-offset:2px; }
+  a:hover { color:#0E2622; }
+  @keyframes sheetUp { from { transform:translateY(24px); opacity:0 } to { transform:none; opacity:1 } }
+  @keyframes settle { from { transform:translateY(-4px); opacity:.4 } to { transform:none; opacity:1 } }
+</style>
+</helmet>
+
+<section style="padding:64px;display:flex;flex-direction:column;gap:40px">
+  <div id="1a" style="display:flex;flex-direction:column;gap:40px">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;max-width:1440px">
+      <div>
+        <div style="font-size:12.5px;letter-spacing:0.14em;text-transform:uppercase;color:#1A5049">Visual pass · guest 390 · console 1440</div>
+        <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;letter-spacing:-0.03em;font-size:52px;line-height:1.0;color:#0E2622;margin-top:10px">Handled</div>
+        <div style="font-size:17px;color:rgba(14,38,34,0.65);margin-top:8px;max-width:620px;text-wrap:pretty">Same structure, same copy, same data. New palette, type pairing, timeline spine, provider slot, tray and console stat row.</div>
+      </div>
+      <div style="font-family:ui-monospace,monospace;font-size:12px;color:#0E2622;border:1px solid rgba(14,38,34,0.25);border-radius:999px;padding:6px 12px">1a</div>
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:56px;align-items:flex-start">
+
+      <!-- 1. GUEST PORTAL -->
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="font-family:ui-monospace,monospace;font-size:12px;color:rgba(14,38,34,0.6)">01 · guest portal · 390</div>
+        <div style="width:390px;background:#E8EDEB;border:1px solid rgba(14,38,34,0.12);border-radius:18px;overflow:hidden">
+          <div style="padding:14px 16px 12px;background:#FCFDFC;border-bottom:1px solid rgba(14,38,34,0.10)">
+            <div style="font-size:12.5px;letter-spacing:0.14em;text-transform:uppercase;color:#1A5049">Villa Serena · Manerba del Garda</div>
+          </div>
+          <div style="padding:24px 16px 0">
+            <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;letter-spacing:-0.03em;font-size:34px;line-height:1.05;color:#0E2622">Welcome, the Brandt family</div>
+            <div style="font-size:15px;color:rgba(14,38,34,0.62);margin-top:10px;font-variant-numeric:tabular-nums">4 – 11 August · 2 adults, 2 children aged 4 and 7</div>
+            <div style="font-size:17px;line-height:1.45;color:rgba(14,38,34,0.78);margin-top:16px;padding-top:16px;border-top:1px solid rgba(14,38,34,0.10);text-wrap:pretty">Anything below can be arranged for you. Prices are final — no booking fees.</div>
+          </div>
+
+          <div style="padding:28px 16px 0;display:flex;flex-direction:column;gap:30px">
+            <sc-for list="{{ bands }}" as="b" hint-placeholder-count="4">
+              <div style="position:relative;padding-left:30px">
+                <div style="position:absolute;left:4px;top:16px;bottom:-30px;width:1px;background:rgba(14,38,34,0.14)"></div>
+                <div style="position:absolute;left:0;top:8px;width:9px;height:9px;background:#0E2622"></div>
+                <div style="font-size:12.5px;letter-spacing:0.14em;text-transform:uppercase;color:#0E2622;font-weight:600">{{ b.label }}</div>
+                <div style="font-size:14px;color:rgba(14,38,34,0.55);margin-top:4px;font-variant-numeric:tabular-nums">{{ b.dates }}</div>
+                <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
+                  <sc-for list="{{ b.cards }}" as="c" hint-placeholder-count="2">
+                    <div style="background:#FCFDFC;border:1px solid rgba(14,38,34,0.10);border-radius:14px;padding:16px">
+                      <div style="font-size:17px;line-height:1.35;font-weight:500;color:#0E2622;letter-spacing:-0.01em;text-wrap:pretty">{{ c.t }}</div>
+                      <div style="display:flex;align-items:center;gap:10px;margin-top:12px">
+                        <div style="width:36px;height:36px;flex:none;border-radius:8px;border:1px solid rgba(14,38,34,0.10);background:repeating-linear-gradient(45deg,#E8EDEB 0 3px,#F4F7F5 3px 6px)"></div>
+                        <div style="min-width:0">
+                          <div style="font-size:15px;font-weight:600;color:#0E2622">{{ c.p.n }}</div>
+                          <div style="font-size:14px;line-height:1.3;color:rgba(14,38,34,0.55)">{{ c.p.r }}</div>
+                        </div>
+                      </div>
+                      <div style="display:flex;align-items:baseline;gap:8px;margin-top:14px;padding-top:14px;border-top:1px solid rgba(14,38,34,0.08)">
+                        <div style="font-size:17px;font-weight:600;color:#0E2622;font-variant-numeric:tabular-nums">{{ c.price }}</div>
+                        <div style="font-size:14px;color:rgba(14,38,34,0.55)">{{ c.pnote }}</div>
+                      </div>
+                      <sc-if value="{{ showLead }}" hint-placeholder-val="{{ true }}">
+                        <div style="margin-top:12px;display:inline-block;font-size:13px;color:rgba(14,38,34,0.62);background:#EDF2F0;border-radius:999px;padding:5px 10px">{{ c.lead }}</div>
+                      </sc-if>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="margin:28px 16px 0;padding:14px 16px;border:1px dashed rgba(14,38,34,0.22);border-radius:14px;font-size:17px;line-height:1.45;color:rgba(14,38,34,0.68);text-wrap:pretty">Nothing requested yet. Start with the fridge — it's the one most families are glad they did.</div>
+
+          <div style="padding:24px 16px 28px;margin-top:20px;font-size:14px;line-height:1.5;color:rgba(14,38,34,0.5);border-top:1px solid rgba(14,38,34,0.10)">Arranged by Lago Verde Property Management, Salò. Everything here is booked and paid through your host — no booking fees, no tipping expected.</div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:56px">
+
+        <!-- 2. SERVICE CARD STATES -->
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="font-family:ui-monospace,monospace;font-size:12px;color:rgba(14,38,34,0.6)">02 · service card · default / requested / confirmed / scheduled</div>
+          <div style="display:flex;gap:16px;flex-wrap:wrap">
+
+            <div style="width:358px;padding:16px;background:#E8EDEB;border:1px solid rgba(14,38,34,0.12);border-radius:18px">
+              <div style="background:#FCFDFC;border:1px solid rgba(14,38,34,0.10);border-radius:14px;padding:16px">
+                <div style="font-size:17px;line-height:1.35;font-weight:500;color:#0E2622">Fridge stocked before you arrive</div>
+                <div style="display:flex;align-items:center;gap:10px;margin-top:12px">
+                  <div style="width:36px;height:36px;flex:none;border-radius:8px;border:1px solid rgba(14,38,34,0.10);background:repeating-linear-gradient(45deg,#E8EDEB 0 3px,#F4F7F5 3px 6px)"></div>
+                  <div>
+                    <div style="font-size:15px;font-weight:600;color:#0E2622">Elena</div>
+                    <div style="font-size:14px;line-height:1.3;color:rgba(14,38,34,0.55)">shops at the Manerba market, Manerba del Garda</div>
+                  </div>
+                </div>
+                <div style="display:flex;align-items:baseline;gap:8px;margin-top:14px;padding-top:14px;border-top:1px solid rgba(14,38,34,0.08)">
+                  <div style="font-size:17px;font-weight:600;color:#0E2622;font-variant-numeric:tabular-nums">€45</div>
+                  <div style="font-size:14px;color:rgba(14,38,34,0.55)">+ the cost of the shopping</div>
+                </div>
+                <div style="margin-top:12px;display:inline-block;font-size:13px;color:rgba(14,38,34,0.62);background:#EDF2F0;border-radius:999px;padding:5px 10px">Order by 6pm the day before</div>
+              </div>
+              <div style="font-family:ui-monospace,monospace;font-size:11.5px;color:rgba(14,38,34,0.5);margin-top:12px">default — also the state a cancelled request reverts to</div>
+            </div>
+
+            <div style="width:358px;padding:16px;background:#E8EDEB;border:1px solid rgba(14,38,34,0.12);border-radius:18px">
+              <div style="background:#FCFDFC;border:1px solid #C9922B;border-radius:14px;overflow:hidden;animation:settle 220ms ease-out">
+                <div style="padding:12px 16px;background:rgba(201,146,43,0.10);border-bottom:1px solid rgba(201,146,43,0.35)">
+                  <div style="display:flex;align-items:center;gap:8px">
+                    <div style="width:7px;height:7px;border-radius:999px;background:#C9922B"></div>
+                    <div style="width:7px;height:7px;border-radius:999px;background:rgba(14,38,34,0.18)"></div>
+                    <div style="width:7px;height:7px;border-radius:999px;background:rgba(14,38,34,0.18)"></div>
+                    <div style="font-size:15px;font-weight:600;color:#0E2622;margin-left:4px">Requested</div>
+                  </div>
+                  <div style="font-size:14px;color:rgba(14,38,34,0.6);margin-top:6px">Elena will confirm before anything is charged</div>
+                </div>
+                <div style="padding:16px">
+                  <div style="font-size:17px;line-height:1.35;font-weight:500;color:#0E2622">Fridge stocked before you arrive</div>
+                  <div style="display:flex;align-items:center;gap:10px;margin-top:12px">
+                    <div style="width:36px;height:36px;flex:none;border-radius:8px;border:1px solid rgba(14,38,34,0.10);background:repeating-linear-gradient(45deg,#E8EDEB 0 3px,#F4F7F5 3px 6px)"></div>
+                    <div>
+                      <div style="font-size:15px;font-weight:600;color:#0E2622">Elena</div>
+                      <div style="font-size:14px;line-height:1.3;color:rgba(14,38,34,0.55)">shops at the Manerba market, Manerba del Garda</div>
+                    </div>
+                  </div>
+                  <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-top:14px;padding-top:14px;border-top:1px solid rgba(14,38,34,0.08)">
+                    <div style="display:flex;align-items:baseline;gap:8px">
+                      <div style="font-size:17px;font-weight:600;color:#0E2622;font-variant-numeric:tabular-nums">€45</div>
+                      <div style="font-size:14px;color:rgba(14,38,34,0.55)">Sun 8 Aug</div>
+                    </div>
+                    <a href="#1a" style="font-size:15px;color:#9E4A32">Cancel request</a>
+                  </div>
+                </div>
+              </div>
+              <div style="font-family:ui-monospace,monospace;font-size:11.5px;color:rgba(14,38,34,0.5);margin-top:12px">requested — accent border + status row, settles in 220ms</div>
+            </div>
+
+            <div style="width:358px;padding:16px;background:#E8EDEB;border:1px solid rgba(14,38,34,0.12);border-radius:18px;display:flex;flex-direction:column;gap:16px">
+              <div style="background:#FCFDFC;border:1px solid #C9922B;border-radius:14px;overflow:hidden">
+                <div style="padding:12px 16px;background:rgba(201,146,43,0.10);border-bottom:1px solid rgba(201,146,43,0.35)">
+                  <div style="display:flex;align-items:center;gap:8px">
+                    <div style="width:7px;height:7px;border-radius:999px;background:#C9922B"></div>
+                    <div style="width:7px;height:7px;border-radius:999px;background:#C9922B"></div>
+                    <div style="width:7px;height:7px;border-radius:999px;background:rgba(14,38,34,0.18)"></div>
+                    <div style="font-size:15px;font-weight:600;color:#0E2622;margin-left:4px">Confirmed by Elena</div>
+                  </div>
+                  <div style="font-size:14px;color:rgba(14,38,34,0.6);margin-top:6px">She will send a time once she has been to the market</div>
+                </div>
+                <div style="padding:16px">
+                  <div style="font-size:17px;line-height:1.35;font-weight:500;color:#0E2622">Fridge stocked before you arrive</div>
+                  <div style="display:flex;align-items:baseline;justify-content:space-between;margin-top:14px;padding-top:14px;border-top:1px solid rgba(14,38,34,0.08)">
+                    <div style="font-size:17px;font-weight:600;color:#0E2622;font-variant-numeric:tabular-nums">€45</div>
+                    <a href="#1a" style="font-size:15px;color:#9E4A32">Cancel request</a>
+                  </div>
+                </div>
+              </div>
+              <div style="background:#FCFDFC;border:1px solid #C9922B;border-radius:14px;overflow:hidden">
+                <div style="padding:12px 16px;background:rgba(201,146,43,0.10);border-bottom:1px solid rgba(201,146,43,0.35)">
+                  <div style="display:flex;align-items:center;gap:8px">
+                    <div style="width:7px;height:7px;border-radius:999px;background:#C9922B"></div>
+                    <div style="width:7px;height:7px;border-radius:999px;background:#C9922B"></div>
+                    <div style="width:7px;height:7px;border-radius:999px;background:#C9922B"></div>
+                    <div style="font-size:15px;font-weight:600;color:#0E2622;margin-left:4px">Scheduled for Mon 4 Aug, 3pm</div>
+                  </div>
+                </div>
+                <div style="padding:16px">
+                  <div style="font-size:17px;line-height:1.35;font-weight:500;color:#0E2622">Fridge stocked before you arrive</div>
+                  <div style="font-size:17px;font-weight:600;color:#0E2622;margin-top:14px;padding-top:14px;border-top:1px solid rgba(14,38,34,0.08);font-variant-numeric:tabular-nums">€45</div>
+                </div>
+              </div>
+              <div style="font-family:ui-monospace,monospace;font-size:11.5px;color:rgba(14,38,34,0.5)">three-dot progress · no action left on the last one</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. TRAY -->
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="font-family:ui-monospace,monospace;font-size:12px;color:rgba(14,38,34,0.6)">04 · requests tray · empty / collapsed / expanded</div>
+          <div style="display:flex;gap:16px;flex-wrap:wrap">
+            <div style="width:390px;height:300px;background:#E8EDEB;border:1px solid rgba(14,38,34,0.12);border-radius:18px;position:relative;overflow:hidden">
+              <div style="padding:16px;font-size:14px;color:rgba(14,38,34,0.35)">page continues</div>
+              <div style="position:absolute;left:16px;right:16px;bottom:16px;padding:14px 16px;border:1px dashed rgba(14,38,34,0.22);border-radius:14px;background:rgba(252,253,252,0.9);font-size:17px;line-height:1.45;color:rgba(14,38,34,0.68);text-wrap:pretty">Nothing requested yet. Start with the fridge — it's the one most families are glad they did.</div>
+            </div>
+            <div style="width:390px;height:300px;background:#E8EDEB;border:1px solid rgba(14,38,34,0.12);border-radius:18px;position:relative;overflow:hidden">
+              <div style="padding:16px;font-size:14px;color:rgba(14,38,34,0.35)">page continues</div>
+              <div style="position:absolute;left:16px;right:16px;bottom:16px;padding:14px 16px;border:1px solid rgba(14,38,34,0.14);border-radius:14px;background:#FCFDFC;display:flex;align-items:center;justify-content:space-between;gap:12px">
+                <div>
+                  <div style="font-size:17px;font-weight:600;color:#0E2622">3 requests</div>
+                  <div style="font-size:14px;color:rgba(14,38,34,0.55);font-variant-numeric:tabular-nums">€230 · none charged yet</div>
+                </div>
+                <div style="font-size:15px;color:#1A5049;font-weight:600">Show</div>
+              </div>
+            </div>
+            <div style="width:390px;height:300px;background:#E8EDEB;border:1px solid rgba(14,38,34,0.12);border-radius:18px;position:relative;overflow:hidden">
+              <div style="position:absolute;inset:0;background:rgba(14,38,34,0.28)"></div>
+              <div style="position:absolute;left:0;right:0;bottom:0;background:#FCFDFC;border-radius:20px 20px 0 0;padding:18px 16px 20px;animation:sheetUp 260ms cubic-bezier(.22,.8,.36,1)">
+                <div style="display:flex;align-items:baseline;justify-content:space-between">
+                  <div style="font-size:20px;font-weight:600;color:#0E2622">Your requests</div>
+                  <div style="font-size:15px;color:#1A5049">Hide</div>
+                </div>
+                <div style="display:flex;flex-direction:column;margin-top:8px">
+                  <div style="display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid rgba(14,38,34,0.08)">
+                    <div>
+                      <div style="font-size:17px;color:#0E2622">Fridge stocked before you arrive</div>
+                      <div style="font-size:14px;color:rgba(14,38,34,0.55)">Scheduled for Mon 4 Aug, 3pm</div>
+                    </div>
+                    <div style="font-size:17px;font-weight:600;font-variant-numeric:tabular-nums;color:#0E2622">€45</div>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid rgba(14,38,34,0.08)">
+                    <div>
+                      <div style="font-size:17px;color:#0E2622">Met at the airport and driven to the house</div>
+                      <div style="font-size:14px;color:rgba(14,38,34,0.55)">Confirmed by Tommaso · <a href="#1a" style="color:#9E4A32">Cancel request</a></div>
+                    </div>
+                    <div style="font-size:17px;font-weight:600;font-variant-numeric:tabular-nums;color:#0E2622">€120</div>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;gap:12px;padding:12px 0">
+                    <div>
+                      <div style="font-size:17px;color:#0E2622">Aperitivo waiting on the table when you walk in</div>
+                      <div style="font-size:14px;color:rgba(14,38,34,0.55)">Requested · <a href="#1a" style="color:#9E4A32">Cancel request</a></div>
+                    </div>
+                    <div style="font-size:17px;font-weight:600;font-variant-numeric:tabular-nums;color:#0E2622">€38</div>
+                  </div>
+                </div>
+                <div style="display:flex;justify-content:space-between;margin-top:12px;padding-top:12px;border-top:1px solid rgba(14,38,34,0.14);font-size:17px;color:#0E2622">
+                  <div>Total, paid through your host</div>
+                  <div style="font-weight:600;font-variant-numeric:tabular-nums">€203</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. REQUEST SHEETS -->
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="font-family:ui-monospace,monospace;font-size:12px;color:rgba(14,38,34,0.6)">03 · request sheet · select + date + time / stepper + chips + textarea</div>
+        <div style="display:flex;gap:16px;flex-wrap:wrap">
+          <div style="width:390px;background:#E8EDEB;border:1px solid rgba(14,38,34,0.12);border-radius:18px;position:relative;overflow:hidden">
+            <div style="height:96px;background:rgba(14,38,34,0.28)"></div>
+            <div style="background:#FCFDFC;border-radius:20px 20px 0 0;animation:sheetUp 260ms cubic-bezier(.22,.8,.36,1)">
+              <div style="padding:14px 16px 0;display:flex;justify-content:center"><div style="width:36px;height:4px;border-radius:999px;background:rgba(14,38,34,0.18)"></div></div>
+              <div style="padding:16px 16px 0">
+                <div style="font-size:20px;line-height:1.3;font-weight:600;color:#0E2622">Met at the airport and driven to the house</div>
+                <div style="display:flex;align-items:center;gap:10px;margin-top:14px;padding:12px;border:1px solid rgba(14,38,34,0.10);border-radius:12px">
+                  <div style="width:44px;height:44px;flex:none;border-radius:8px;border:1px solid rgba(14,38,34,0.10);background:repeating-linear-gradient(45deg,#E8EDEB 0 3px,#F4F7F5 3px 6px)"></div>
+                  <div>
+                    <div style="font-size:15px;font-weight:600;color:#0E2622">Tommaso · drives, licensed NCC, Desenzano del Garda</div>
+                    <div style="font-size:14px;color:rgba(14,38,34,0.55);margin-top:2px">Verified: ID · NCC licence · insurance · references</div>
+                  </div>
+                </div>
+                <div style="font-size:17px;line-height:1.5;color:rgba(14,38,34,0.78);margin-top:14px;text-wrap:pretty">I watch the flight and wait if you're late — there's no extra charge for that. Car seats are fitted before I leave the garage, not in the airport car park.</div>
+                <div style="display:flex;align-items:baseline;gap:8px;margin-top:14px;padding-top:14px;border-top:1px solid rgba(14,38,34,0.10)">
+                  <div style="font-size:17px;font-weight:600;color:#0E2622;font-variant-numeric:tabular-nums">€120</div>
+                  <div style="font-size:14px;color:rgba(14,38,34,0.55)">Book at least 24 hours ahead</div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:14px;margin-top:20px">
+                  <div>
+                    <div style="font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(14,38,34,0.6);font-weight:600">Pick-up from</div>
+                    <div style="margin-top:6px;padding:13px 14px;border:1px solid rgba(14,38,34,0.22);border-radius:10px;font-size:17px;color:#0E2622;display:flex;justify-content:space-between;align-items:center">Verona Villafranca (VRN)<span style="color:rgba(14,38,34,0.45)">▾</span></div>
+                  </div>
+                  <div style="display:flex;gap:12px">
+                    <div style="flex:1">
+                      <div style="font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(14,38,34,0.6);font-weight:600">Arrival date</div>
+                      <div style="margin-top:6px;padding:13px 14px;border:1px solid #1A5049;box-shadow:0 0 0 2px rgba(26,80,73,0.14);border-radius:10px;font-size:17px;color:#0E2622;font-variant-numeric:tabular-nums">Tue 4 Aug</div>
+                    </div>
+                    <div style="flex:1">
+                      <div style="font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(14,38,34,0.6);font-weight:600">Landing time</div>
+                      <div style="margin-top:6px;padding:13px 14px;border:1px solid rgba(14,38,34,0.22);border-radius:10px;font-size:17px;color:rgba(14,38,34,0.4);font-variant-numeric:tabular-nums">14:35</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div style="margin-top:20px;padding:14px 16px 18px;border-top:1px solid rgba(14,38,34,0.10);background:#FCFDFC">
+                <div style="font-size:15px;color:rgba(14,38,34,0.62)">Estimated <span style="color:#0E2622;font-weight:600;font-variant-numeric:tabular-nums">€120</span> · confirmed by Tommaso before anything is charged</div>
+                <div style="margin-top:12px;background:#1A5049;color:#FCFDFC;border-radius:10px;padding:15px;text-align:center;font-size:17px;font-weight:600">Request this</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="width:390px;background:#E8EDEB;border:1px solid rgba(14,38,34,0.12);border-radius:18px;position:relative;overflow:hidden">
+            <div style="height:96px;background:rgba(14,38,34,0.28)"></div>
+            <div style="background:#FCFDFC;border-radius:20px 20px 0 0;animation:sheetUp 260ms cubic-bezier(.22,.8,.36,1)">
+              <div style="padding:14px 16px 0;display:flex;justify-content:center"><div style="width:36px;height:4px;border-radius:999px;background:rgba(14,38,34,0.18)"></div></div>
+              <div style="padding:16px 16px 0">
+                <div style="font-size:20px;line-height:1.3;font-weight:600;color:#0E2622">Fridge stocked before you arrive</div>
+                <div style="display:flex;align-items:center;gap:10px;margin-top:14px;padding:12px;border:1px solid rgba(14,38,34,0.10);border-radius:12px">
+                  <div style="width:44px;height:44px;flex:none;border-radius:8px;border:1px solid rgba(14,38,34,0.10);background:#E4EDE9;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:22px;color:#1A5049">E</div>
+                  <div>
+                    <div style="font-size:15px;font-weight:600;color:#0E2622">Elena · shops at the Manerba market, Manerba del Garda</div>
+                    <div style="font-size:14px;color:rgba(14,38,34,0.55);margin-top:2px">Verified: ID · insurance · references</div>
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:16px;margin-top:20px">
+                  <div>
+                    <div style="font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(14,38,34,0.6);font-weight:600">Which day</div>
+                    <div style="margin-top:6px;padding:13px 14px;border:1px solid rgba(14,38,34,0.22);border-radius:10px;font-size:17px;color:#0E2622;font-variant-numeric:tabular-nums">Sun 8 Aug</div>
+                  </div>
+                  <div>
+                    <div style="font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(14,38,34,0.6);font-weight:600">How many people eating</div>
+                    <div style="margin-top:6px;display:flex;align-items:center;gap:14px">
+                      <div style="width:44px;height:44px;border:1px solid rgba(14,38,34,0.22);border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#0E2622">−</div>
+                      <div style="font-size:17px;font-weight:600;color:#0E2622;font-variant-numeric:tabular-nums;min-width:20px;text-align:center">4</div>
+                      <div style="width:44px;height:44px;border:1px solid rgba(14,38,34,0.22);border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#0E2622">+</div>
+                    </div>
+                  </div>
+                  <div>
+                    <div style="font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(14,38,34,0.6);font-weight:600">What to get in</div>
+                    <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:8px">
+                      <div style="font-size:15px;padding:9px 14px;border-radius:999px;background:#1A5049;color:#FCFDFC">Milk and bread</div>
+                      <div style="font-size:15px;padding:9px 14px;border-radius:999px;background:#1A5049;color:#FCFDFC">Fruit</div>
+                      <div style="font-size:15px;padding:9px 14px;border-radius:999px;border:1px solid rgba(14,38,34,0.22);color:#0E2622">Coffee</div>
+                      <div style="font-size:15px;padding:9px 14px;border-radius:999px;border:1px solid rgba(14,38,34,0.22);color:#0E2622">Pasta and sauce</div>
+                      <div style="font-size:15px;padding:9px 14px;border-radius:999px;background:#1A5049;color:#FCFDFC">Beer and wine</div>
+                      <div style="font-size:15px;padding:9px 14px;border-radius:999px;border:1px solid rgba(14,38,34,0.22);color:#0E2622">Nappies</div>
+                    </div>
+                  </div>
+                  <div>
+                    <div style="font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(14,38,34,0.6);font-weight:600">Anything else, or anything to avoid</div>
+                    <div style="margin-top:6px;padding:13px 14px;border:1px solid rgba(14,38,34,0.22);border-radius:10px;font-size:17px;line-height:1.45;color:#0E2622;min-height:76px">No nuts in the house please. Oat milk if you can find it.</div>
+                  </div>
+                </div>
+              </div>
+              <div style="margin-top:20px;padding:14px 16px 18px;border-top:1px solid rgba(14,38,34,0.10)">
+                <div style="font-size:15px;color:rgba(14,38,34,0.62)">Estimated <span style="color:#0E2622;font-weight:600;font-variant-numeric:tabular-nums">€45 + about €80</span> of shopping · confirmed by Elena before anything is charged</div>
+                <div style="margin-top:12px;background:#1A5049;color:#FCFDFC;border-radius:10px;padding:15px;text-align:center;font-size:17px;font-weight:600">Request this</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 7. EXPIRED -->
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="font-family:ui-monospace,monospace;font-size:12px;color:rgba(14,38,34,0.6)">07 · expired link · 390</div>
+            <div style="width:390px;height:520px;background:#E8EDEB;border:1px solid rgba(14,38,34,0.12);border-radius:18px;display:flex;flex-direction:column">
+              <div style="padding:14px 16px 12px;background:#FCFDFC;border-bottom:1px solid rgba(14,38,34,0.10)">
+                <div style="font-size:12.5px;letter-spacing:0.14em;text-transform:uppercase;color:#1A5049">Villa Serena · Manerba del Garda</div>
+              </div>
+              <div style="padding:32px 16px;display:flex;flex-direction:column;gap:16px">
+                <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;letter-spacing:-0.03em;font-size:34px;line-height:1.05;color:#0E2622">This link has ended</div>
+                <div style="font-size:17px;line-height:1.5;color:rgba(14,38,34,0.7);text-wrap:pretty">It covered the Brandt family's stay, 4 – 11 August. Nothing can be requested through it now.</div>
+                <div style="margin-top:8px;background:#FCFDFC;border:1px solid rgba(14,38,34,0.10);border-radius:14px;padding:16px">
+                  <div style="font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(14,38,34,0.6);font-weight:600">Still the person to ask</div>
+                  <div style="display:flex;align-items:center;gap:10px;margin-top:12px">
+                    <div style="width:44px;height:44px;flex:none;border-radius:8px;border:1px solid rgba(14,38,34,0.10);background:#E4EDE9;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:22px;color:#1A5049">C</div>
+                    <div>
+                      <div style="font-size:15px;font-weight:600;color:#0E2622">Chiara</div>
+                      <div style="font-size:14px;color:rgba(14,38,34,0.55)">welcome host for Lago Verde, Manerba del Garda</div>
+                    </div>
+                  </div>
+                  <div style="margin-top:14px;border:1px solid #1A5049;color:#1A5049;border-radius:10px;padding:14px;text-align:center;font-size:17px;font-weight:600">Message Chiara</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. CONSOLE -->
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="font-family:ui-monospace,monospace;font-size:12px;color:rgba(14,38,34,0.6)">05 · agency console · requests, expanded row · 1440</div>
+        <div style="width:1440px;background:#E8EDEB;border:1px solid rgba(14,38,34,0.12);border-radius:18px;overflow:hidden">
+          <div style="background:#FCFDFC;border-bottom:1px solid rgba(14,38,34,0.10);padding:16px 0">
+            <div style="max-width:1152px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between">
+              <div>
+                <div style="font-size:17px;font-weight:600;color:#0E2622">Lago Verde Property Management</div>
+                <div style="font-size:14px;color:rgba(14,38,34,0.55);margin-top:2px">Limonaia guest services · 3 properties</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:20px">
+                <a href="#1a" style="font-size:15px">Pitch screen</a>
+                <div style="font-size:15px;font-weight:600;color:#FCFDFC;background:#1A5049;border-radius:10px;padding:10px 16px">Get guest link</div>
+              </div>
+            </div>
+          </div>
+          <div style="max-width:1152px;margin:0 auto;padding:24px">
+            <div style="display:grid;grid-template-columns:420px 1fr;gap:16px">
+              <div style="background:#0E2622;border-radius:14px;padding:24px;display:flex;flex-direction:column;justify-content:space-between">
+                <div style="font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(252,253,252,0.6);font-weight:600">Your share · August</div>
+                <div>
+                  <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:600;letter-spacing:-0.03em;font-size:72px;line-height:1;color:#C9922B;font-variant-numeric:tabular-nums;margin-top:16px">€78</div>
+                  <div style="font-size:15px;color:rgba(252,253,252,0.68);margin-top:10px">10% of everything below, paid monthly. Nothing to invoice.</div>
+                </div>
+              </div>
+              <div style="display:grid;grid-template-rows:repeat(3,1fr);gap:16px">
+                <div style="background:#FCFDFC;border:1px solid rgba(14,38,34,0.10);border-radius:14px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between">
+                  <div style="font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(14,38,34,0.6);font-weight:600">Requests this month</div>
+                  <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:32px;color:#0E2622;font-variant-numeric:tabular-nums">5</div>
+                </div>
+                <div style="background:#FCFDFC;border:1px solid rgba(14,38,34,0.10);border-radius:14px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between">
+                  <div style="font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(14,38,34,0.6);font-weight:600">Gross value</div>
+                  <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:32px;color:#0E2622;font-variant-numeric:tabular-nums">€784</div>
+                </div>
+                <div style="background:#FCFDFC;border:1px solid rgba(14,38,34,0.10);border-radius:14px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between">
+                  <div style="font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(14,38,34,0.6);font-weight:600">Our fee</div>
+                  <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:32px;color:#0E2622;font-variant-numeric:tabular-nums">€78</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="display:flex;gap:24px;margin-top:28px;border-bottom:1px solid rgba(14,38,34,0.14)">
+              <div style="font-size:15px;font-weight:600;color:#0E2622;padding-bottom:10px;border-bottom:2px solid #0E2622;margin-bottom:-1px">Requests</div>
+              <div style="font-size:15px;color:rgba(14,38,34,0.55);padding-bottom:10px">Properties</div>
+              <div style="font-size:15px;color:rgba(14,38,34,0.55);padding-bottom:10px">Providers</div>
+            </div>
+
+            <div style="margin-top:16px;background:#FCFDFC;border:1px solid rgba(14,38,34,0.10);border-radius:14px;overflow:hidden">
+              <div style="display:grid;grid-template-columns:108px 92px minmax(220px,1fr) 80px 112px 62px 74px 140px 116px;gap:12px;padding:12px 20px;border-bottom:1px solid rgba(14,38,34,0.12);font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(14,38,34,0.55);font-weight:600">
+                <div>Guest</div><div>Property</div><div>Service</div><div>Provider</div><div>Requested for</div><div style="text-align:right">Value</div><div style="text-align:right">Your share</div><div>Status</div><div></div>
+              </div>
+              <sc-for list="{{ rows }}" as="r" hint-placeholder-count="5">
+                <div>
+                  <div style="display:grid;grid-template-columns:108px 92px minmax(220px,1fr) 80px 112px 62px 74px 140px 116px;gap:12px;padding:16px 20px;border-bottom:1px solid rgba(14,38,34,0.08);font-size:15px;color:#0E2622;align-items:center">
+                    <div>{{ r.guest }}</div>
+                    <div style="color:rgba(14,38,34,0.65)">{{ r.property }}</div>
+                    <div>{{ r.service }}</div>
+                    <div style="color:rgba(14,38,34,0.65)">{{ r.provider }}</div>
+                    <div style="color:rgba(14,38,34,0.65);font-variant-numeric:tabular-nums">{{ r.when }}</div>
+                    <div style="text-align:right;font-variant-numeric:tabular-nums">{{ r.value }}</div>
+                    <div style="text-align:right;font-variant-numeric:tabular-nums;font-weight:600">{{ r.share }}</div>
+                    <div style="display:flex;align-items:center;gap:8px"><div style="width:7px;height:7px;border-radius:999px;flex:none;background:{{ r.dot }}"></div>{{ r.status }}</div>
+                    <div>
+                      <sc-if value="{{ r.action }}" hint-placeholder-val="{{ true }}">
+                        <div style="font-size:15px;font-weight:600;color:#1A5049;border:1px solid rgba(26,80,73,0.4);border-radius:10px;padding:8px 12px;text-align:center">{{ r.action }}</div>
+                      </sc-if>
+                    </div>
+                  </div>
+                  <sc-if value="{{ r.expanded }}" hint-placeholder-val="{{ false }}">
+                    <div style="background:#EFF3F1;border-bottom:1px solid rgba(14,38,34,0.10);padding:18px 20px">
+                      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+                        <div>
+                          <div style="font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(14,38,34,0.55);font-weight:600">Which day</div>
+                          <div style="font-size:15px;color:#0E2622;margin-top:6px;font-variant-numeric:tabular-nums">Wed 11 Aug</div>
+                        </div>
+                        <div>
+                          <div style="font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(14,38,34,0.55);font-weight:600">Time window</div>
+                          <div style="font-size:15px;color:#0E2622;margin-top:6px;font-variant-numeric:tabular-nums">Morning, 9 – 12</div>
+                        </div>
+                        <div>
+                          <div style="font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(14,38,34,0.55);font-weight:600">Anything to leave alone?</div>
+                          <div style="font-size:15px;color:#0E2622;margin-top:6px">The children nap in the small bedroom until 10.</div>
+                        </div>
+                      </div>
+                      <div style="font-size:14px;color:rgba(14,38,34,0.55);margin-top:16px;font-variant-numeric:tabular-nums">Requested Mon 17 Aug · Anna takes €56 · platform fee €7</div>
+                    </div>
+                  </sc-if>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:20px;padding-top:16px;border-top:1px solid rgba(14,38,34,0.12);font-size:14px;color:rgba(14,38,34,0.55)">
+              <div>Commission split: provider 80% · agency 10% · platform 10%. Your share is paid monthly against the requests above.</div>
+              <a href="#1a" style="font-size:14px">Reset demo</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONSOLE PROPERTIES + PROVIDERS -->
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="font-family:ui-monospace,monospace;font-size:12px;color:rgba(14,38,34,0.6)">05b · console · properties tab</div>
+        <div style="width:1440px;background:#E8EDEB;border:1px solid rgba(14,38,34,0.12);border-radius:18px;overflow:hidden">
+          <div style="max-width:1152px;margin:0 auto;padding:24px">
+            <div style="display:flex;gap:24px;border-bottom:1px solid rgba(14,38,34,0.14)">
+              <div style="font-size:15px;color:rgba(14,38,34,0.55);padding-bottom:10px">Requests</div>
+              <div style="font-size:15px;font-weight:600;color:#0E2622;padding-bottom:10px;border-bottom:2px solid #0E2622;margin-bottom:-1px">Properties</div>
+              <div style="font-size:15px;color:rgba(14,38,34,0.55);padding-bottom:10px">Providers</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:12px;margin-top:16px">
+              <sc-for list="{{ properties }}" as="p" hint-placeholder-count="3">
+                <div style="background:#FCFDFC;border:1px solid rgba(14,38,34,0.10);border-radius:14px;padding:20px;display:grid;grid-template-columns:280px 1fr 160px 150px;gap:24px;align-items:center">
+                  <div>
+                    <div style="font-size:17px;font-weight:600;color:#0E2622">{{ p.name }}</div>
+                    <div style="font-size:14px;color:rgba(14,38,34,0.55);margin-top:2px">{{ p.village }}</div>
+                  </div>
+                  <div>
+                    <div style="font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(14,38,34,0.55);font-weight:600">In residence</div>
+                    <div style="font-size:15px;color:#0E2622;margin-top:4px;font-variant-numeric:tabular-nums">{{ p.guest }}</div>
+                  </div>
+                  <div>
+                    <div style="font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(14,38,34,0.55);font-weight:600">Services on</div>
+                    <div style="font-size:15px;color:#0E2622;margin-top:4px;font-variant-numeric:tabular-nums">{{ p.services }}</div>
+                  </div>
+                  <div style="font-size:15px;font-weight:600;color:#1A5049;border:1px solid rgba(26,80,73,0.4);border-radius:10px;padding:10px 12px;text-align:center">Get guest link</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="font-family:ui-monospace,monospace;font-size:12px;color:rgba(14,38,34,0.6)">05c · console · providers tab (photo slot + monogram fallback)</div>
+        <div style="width:1440px;background:#E8EDEB;border:1px solid rgba(14,38,34,0.12);border-radius:18px;overflow:hidden">
+          <div style="max-width:1152px;margin:0 auto;padding:24px">
+            <div style="display:flex;gap:24px;border-bottom:1px solid rgba(14,38,34,0.14)">
+              <div style="font-size:15px;color:rgba(14,38,34,0.55);padding-bottom:10px">Requests</div>
+              <div style="font-size:15px;color:rgba(14,38,34,0.55);padding-bottom:10px">Properties</div>
+              <div style="font-size:15px;font-weight:600;color:#0E2622;padding-bottom:10px;border-bottom:2px solid #0E2622;margin-bottom:-1px">Providers</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px">
+              <sc-for list="{{ providers }}" as="v" hint-placeholder-count="10">
+                <div style="background:#FCFDFC;border:1px solid rgba(14,38,34,0.10);border-radius:14px;padding:16px;display:flex;gap:14px">
+                  <div style="width:56px;height:56px;flex:none;border-radius:10px;border:1px solid rgba(14,38,34,0.10);background:{{ v.slot }};display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:24px;color:#1A5049">{{ v.mono }}</div>
+                  <div style="min-width:0">
+                    <div style="display:flex;align-items:center;gap:8px">
+                      <div style="font-size:17px;font-weight:600;color:#0E2622">{{ v.n }}</div>
+                      <div style="font-size:13px;color:#0E2622;background:rgba(201,146,43,0.16);border:1px solid rgba(201,146,43,0.4);border-radius:999px;padding:2px 8px">Verified</div>
+                    </div>
+                    <div style="font-size:15px;color:rgba(14,38,34,0.7);margin-top:4px">{{ v.r }}</div>
+                    <div style="font-size:14px;color:rgba(14,38,34,0.5);margin-top:8px;padding-top:8px;border-top:1px solid rgba(14,38,34,0.08)">Checked: {{ v.checked }} · {{ v.services }}</div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. PITCH -->
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="font-family:ui-monospace,monospace;font-size:12px;color:rgba(14,38,34,0.6)">06 · pitch screen · 1440</div>
+        <div style="width:1440px;height:810px;background:#0E2622;border-radius:18px;overflow:hidden;display:grid;grid-template-columns:1fr 480px">
+          <div style="padding:80px;display:flex;flex-direction:column;justify-content:space-between">
+            <div style="font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(252,253,252,0.55);font-weight:600">Lago Verde Property Management</div>
+            <div>
+              <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;letter-spacing:-0.045em;font-size:132px;line-height:0.9;color:#FCFDFC">Handled</div>
+              <div style="font-size:26px;line-height:1.4;color:rgba(252,253,252,0.75);margin-top:28px;max-width:560px;text-wrap:pretty">Everything a family needs at the villa — arranged by the people who already look after the house.</div>
+            </div>
+            <div style="font-family:ui-monospace,monospace;font-size:15px;color:#C9922B">handled.link/brandt</div>
+          </div>
+          <div style="background:#FCFDFC;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px">
+            {{ qr }}
+            <div style="font-size:17px;color:rgba(14,38,34,0.65)">Scan for the Brandt family's stay</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SPEC -->
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="font-family:ui-monospace,monospace;font-size:12px;color:rgba(14,38,34,0.6)">handoff · tokens and numbers</div>
+        <div style="width:720px;background:#FCFDFC;border:1px solid rgba(14,38,34,0.12);border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:24px">
+          <div>
+            <div style="font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(14,38,34,0.55);font-weight:600">Tokens</div>
+            <div style="display:flex;flex-direction:column;gap:8px;margin-top:12px;font-family:ui-monospace,monospace;font-size:13px;color:#0E2622">
+              <div style="display:flex;align-items:center;gap:12px"><div style="width:22px;height:22px;border-radius:6px;background:#0E2622"></div>--color-deep: #0E2622 — oklch(.24 .025 172) — text, headers, pitch, stat panel</div>
+              <div style="display:flex;align-items:center;gap:12px"><div style="width:22px;height:22px;border-radius:6px;background:#1A5049"></div>--color-water: #1A5049 — oklch(.40 .055 175) — buttons, links, eyebrow</div>
+              <div style="display:flex;align-items:center;gap:12px"><div style="width:22px;height:22px;border-radius:6px;background:#E8EDEB;border:1px solid rgba(14,38,34,.12)"></div>--color-stone: #E8EDEB — oklch(.935 .006 165) — page background, chips</div>
+              <div style="display:flex;align-items:center;gap:12px"><div style="width:22px;height:22px;border-radius:6px;background:#FCFDFC;border:1px solid rgba(14,38,34,.12)"></div>--color-paper: #FCFDFC — oklch(.992 .002 160) — cards, sheets, console</div>
+              <div style="display:flex;align-items:center;gap:12px"><div style="width:22px;height:22px;border-radius:6px;background:#C9922B"></div>--color-citron: #C9922B — oklch(.68 .12 75) — status dots, your share, verified</div>
+              <div style="display:flex;align-items:center;gap:12px"><div style="width:22px;height:22px;border-radius:6px;background:#9E4A32"></div>--color-clay: #9E4A32 — oklch(.50 .11 38) — cancel and error only</div>
+              <div style="color:rgba(14,38,34,0.6);margin-top:4px">tints: deep/8 · deep/10 · deep/12 hairlines · deep/55 secondary · deep/70 body · citron/10 fill, citron/40 border</div>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(14,38,34,0.55);font-weight:600">Type</div>
+            <div style="font-size:15px;line-height:1.6;color:#0E2622;margin-top:10px">Bricolage Grotesque 600/700 (opsz 12–96) — guest headline, console numbers, monogram only. Tracking: −0.045em at 132, −0.03em at 34–72, −0.02em at 32. Public Sans 400/500/600 — everything else, tabular numerals on prices.<br>132 pitch · 72 your share · 34 guest headline · 32 stat number · 26 pitch line · 20 sheet title · 17 body · 15 secondary and controls · 14 caption · 13 uppercase label (0.08em, 0.12em in console, 0.14em eyebrow) · 12.5 eyebrow.</div>
+          </div>
+          <div>
+            <div style="font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(14,38,34,0.55);font-weight:600">Numbers</div>
+            <div style="font-size:15px;line-height:1.6;color:#0E2622;margin-top:10px">Radii: card 14 · control 10 · sheet top 20 · photo slot 8 (56px slot 10) · chip and stepper 999. Borders 1px, hairlines deep/8–12, focus 1px water + 2px water/14 ring. Spacing step 4: 8/12/16/20/24/28/32. Guest column 480 max, 16 side padding, 12 between cards, 30 between bands, timeline spine 1px at x=4, 9px marker, 30px indent. Console 1152 max, 24 padding, 16 gap, rows 16/20. Motion: sheet 260ms cubic-bezier(.22,.8,.36,1), scrim 200ms, card settle 220ms ease-out, nothing else.</div>
+          </div>
+          <div>
+            <div style="font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(14,38,34,0.55);font-weight:600">Structural changes</div>
+            <div style="font-size:15px;line-height:1.6;color:#0E2622;margin-top:10px">Phase bands become a timeline spine: band wrapper gets relative positioning, an absolute 1px rule and a 9px marker, content indented 30px. Card gains an optional status header block above the body (new sub-element, three dots + line), replacing the inline status row. Console stat row goes from four equal tiles to a 420px dark panel plus three stacked rows — new grid, same four numbers. Provider photo slot is one component with two states, photo or Bricolage monogram on water/10; no more circle initial fallback. Tray is a floating bar 16px inset, expanding into the same sheet component as a request.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>]]>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showLeadTimes&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Guest side&quot;}}">
+class Component extends DCLogic {
+  qr() {
+    const n = 25, cells = [];
+    const inFinder = (r, c) => {
+      const zones = [[0,0],[0,n-7],[n-7,0]];
+      for (const [zr, zc] of zones) {
+        if (r >= zr && r < zr + 7 && c >= zc && c < zc + 7) {
+          const rr = r - zr, cc = c - zc;
+          const ring = rr === 0 || rr === 6 || cc === 0 || cc === 6;
+          const core = rr >= 2 && rr <= 4 && cc >= 2 && cc <= 4;
+          return { hit: true, on: ring || core };
+        }
+      }
+      return { hit: false };
+    };
+    for (let r = 0; r < n; r++) {
+      for (let c = 0; c < n; c++) {
+        const f = inFinder(r, c);
+        const on = f.hit ? f.on : ((r * 928371 + c * 12377 + ((r * c) % 11) * 4099) % 97) % 3 < 1;
+        cells.push(React.createElement('div', { key: r + '-' + c, style: { background: on ? '#0E2622' : 'transparent' } }));
+      }
+    }
+    return React.createElement('div', {
+      style: { display: 'grid', gridTemplateColumns: 'repeat(' + n + ', 1fr)', width: 300, height: 300 }
+    }, cells);
+  }
+
+  renderVals() {
+    const P = {
+      elena: { n: 'Elena', r: 'shops at the Manerba market, Manerba del Garda' },
+      tommaso: { n: 'Tommaso', r: 'drives, licensed NCC, Desenzano del Garda' },
+      chiara: { n: 'Chiara', r: 'welcome host for Lago Verde, Manerba del Garda' },
+      marco: { n: 'Marco', r: 'cooks in your kitchen, Salò' },
+      giulia: { n: 'Giulia', r: 'babysits, trained nursery teacher, Moniga del Garda' },
+      sofia: { n: 'Sofia', r: 'babysits, English and German, Padenghe sul Garda' },
+      anna: { n: 'Anna', r: 'housekeeping and laundry, Manerba del Garda' },
+      luca: { n: 'Luca', r: 'skippers his own boat, Moniga del Garda' },
+      davide: { n: 'Davide', r: 'makes wine in the Valtènesi, Moniga del Garda' },
+      francesca: { n: 'Francesca', r: 'massage therapist, Salò' }
+    };
+    const bands = [
+      { label: 'Before you arrive', dates: 'In place by Wed 4 Aug', cards: [
+        { t: 'Fridge stocked before you arrive', p: P.elena, price: '€45', pnote: '+ the cost of the shopping', lead: 'Order by 6pm the day before' },
+        { t: 'Met at the airport and driven to the house', p: P.tommaso, price: '€120', pnote: '', lead: 'Book at least 24 hours ahead' },
+        { t: 'Shown round the house when you arrive', p: P.chiara, price: '€40', pnote: 'for the whole stay', lead: 'Order by 6pm the day before' }
+      ]},
+      { label: 'Your first evening', dates: 'Wed 4 Aug', cards: [
+        { t: 'Dinner cooked at the villa on your first night', p: P.marco, price: '€65', pnote: 'per adult', lead: 'Book at least 48 hours ahead' },
+        { t: 'Aperitivo waiting on the table when you walk in', p: P.elena, price: '€38', pnote: '', lead: 'Order by 6pm the day before' }
+      ]},
+      { label: 'During the week', dates: 'Thu 5 Aug – Tue 10 Aug', cards: [
+        { t: 'Babysitting so you can go out to dinner', p: P.giulia, price: '€18/hour', pnote: '3 hour minimum', lead: 'Book at least 24 hours ahead' },
+        { t: 'Evening babysitting in English or German', p: P.sofia, price: '€20/hour', pnote: '3 hour minimum', lead: 'Book at least 24 hours ahead' },
+        { t: 'Mid-stay clean, fresh beds and towels', p: P.anna, price: '€70', pnote: '', lead: 'Book by the evening before' },
+        { t: 'Washing collected and back the next morning', p: P.anna, price: '€22', pnote: 'per bag, washed and folded', lead: 'Collected the same evening if you ask before 4pm' },
+        { t: 'An afternoon on the lake with a skipper', p: P.luca, price: 'from €280', pnote: 'half day, up to 7 people', lead: 'Book at least 24 hours ahead' },
+        { t: 'Valtènesi wines tasted at your table', p: P.davide, price: '€30', pnote: 'per person', lead: 'Book at least 24 hours ahead' },
+        { t: 'A massage on the terrace', p: P.francesca, price: '€80', pnote: '60 minutes, at the house', lead: 'Book at least 24 hours ahead' }
+      ]},
+      { label: 'Before you leave', dates: 'Wed 11 Aug', cards: [
+        { t: 'Late checkout and somewhere to leave the bags', p: P.chiara, price: '€35', pnote: 'subject to the house being free', lead: 'Ask by the day before' },
+        { t: 'Driven back to the airport on the last day', p: P.tommaso, price: '€120', pnote: '', lead: 'Book at least 24 hours ahead' }
+      ]}
+    ];
+    const A = '#C9922B', D = 'rgba(14,38,34,0.25)';
+    const rows = [
+      { guest: "the Van Dijk family", property: "Ca' del Porto", service: 'Dinner cooked at the villa on your first night', provider: 'Marco', when: 'Tue 3 Aug, 8pm', value: '€260', share: '€26', status: 'Requested', dot: A, action: 'Confirm with Marco', expanded: false },
+      { guest: 'the Laurent family', property: 'Casa Oliva', service: 'Mid-stay clean, fresh beds and towels', provider: 'Anna', when: 'Wed 11 Aug', value: '€70', share: '€7', status: 'Requested', dot: A, action: 'Confirm with Anna', expanded: true },
+      { guest: 'the Van Dijk family', property: "Ca' del Porto", service: 'An afternoon on the lake with a skipper', provider: 'Luca', when: 'Wed 4 Aug', value: '€280', share: '€28', status: 'Confirmed by Luca', dot: A, action: 'Mark scheduled', expanded: false },
+      { guest: 'the Laurent family', property: 'Casa Oliva', service: 'Met at the airport and driven to the house', provider: 'Tommaso', when: 'Sun 8 Aug, 2.35pm', value: '€120', share: '€12', status: 'Confirmed by Tommaso', dot: A, action: 'Mark scheduled', expanded: false },
+      { guest: 'the Laurent family', property: 'Casa Oliva', service: 'Fridge stocked before you arrive', provider: 'Elena', when: 'Sun 8 Aug', value: '€54', share: '€5', status: 'Scheduled for Sun 8 Aug', dot: D, action: '', expanded: false }
+    ];
+    const photo = 'repeating-linear-gradient(45deg,#E8EDEB 0 3px,#F4F7F5 3px 6px)';
+    const mono = '#E4EDE9';
+    const providers = [
+      { n: 'Elena', r: 'shops at the Manerba market, Manerba del Garda', checked: 'ID · insurance · references', services: '2 services', slot: photo, mono: '' },
+      { n: 'Marco', r: 'cooks in your kitchen, Salò', checked: 'ID · insurance · HACCP certificate · references', services: '1 service', slot: mono, mono: 'M' },
+      { n: 'Giulia', r: 'babysits, trained nursery teacher, Moniga del Garda', checked: 'ID · insurance · DBS-equivalent check · references', services: '1 service', slot: photo, mono: '' },
+      { n: 'Tommaso', r: 'drives, licensed NCC, Desenzano del Garda', checked: 'ID · NCC licence · insurance · references', services: '2 services', slot: photo, mono: '' },
+      { n: 'Anna', r: 'housekeeping and laundry, Manerba del Garda', checked: 'ID · insurance · references', services: '2 services', slot: mono, mono: 'A' },
+      { n: 'Luca', r: 'skippers his own boat, Moniga del Garda', checked: 'ID · skipper licence · boat insurance · references', services: '1 service', slot: photo, mono: '' },
+      { n: 'Sofia', r: 'babysits, English and German, Padenghe sul Garda', checked: 'ID · insurance · references', services: '1 service', slot: photo, mono: '' },
+      { n: 'Chiara', r: 'welcome host for Lago Verde, Manerba del Garda', checked: 'ID · insurance · references', services: '2 services', slot: mono, mono: 'C' },
+      { n: 'Davide', r: 'makes wine in the Valtènesi, Moniga del Garda', checked: 'ID · insurance · references', services: '1 service', slot: photo, mono: '' },
+      { n: 'Francesca', r: 'massage therapist, Salò', checked: 'ID · professional registration · insurance · references', services: '1 service', slot: photo, mono: '' }
+    ];
+    const properties = [
+      { name: 'Villa Serena', village: 'Manerba del Garda', guest: 'the Brandt family · 4 – 11 Aug', services: '14 of 14' },
+      { name: "Ca' del Porto", village: 'Moniga del Garda', guest: 'the Van Dijk family · 1 – 8 Aug', services: '12 of 14' },
+      { name: 'Casa Oliva', village: 'Padenghe sul Garda', guest: 'the Laurent family · 8 – 15 Aug', services: '14 of 14' }
+    ];
+    return {
+      bands, rows, providers, properties,
+      qr: this.qr(),
+      showLead: this.props.showLeadTimes ?? true
+    };
+  }
+}
+</script>
+</body>
+</html>

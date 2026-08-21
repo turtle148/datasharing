@@ -1,114 +1,102 @@
 import { useState } from 'react'
-import StatusDots from './StatusDots'
-import { formatStayRange, money } from '../lib/format'
-import { requestedSlot, statusLabel } from '../lib/status'
+import Sheet from './Sheet'
+import { money } from '../lib/format'
+import { statusLabel } from '../lib/status'
 import { cancelRequest, data } from '../lib/store'
-import type { ServiceRequest, Stay } from '../lib/types'
+import type { ServiceRequest } from '../lib/types'
 
-export default function RequestsTray({
-  requests,
-  stay,
-}: {
-  requests: ServiceRequest[]
-  stay: Stay
-}) {
+export default function RequestsTray({ requests }: { requests: ServiceRequest[] }) {
   const [open, setOpen] = useState(false)
   const live = requests.filter((r) => r.status !== 'cancelled')
   const total = live.reduce((sum, r) => sum + r.estimate, 0)
 
-  if (!live.length) {
-    return (
-      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-deep/10 bg-paper/95 backdrop-blur">
-        <div className="mx-auto max-w-[480px] px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
-          <p className="text-[15px] text-deep/60">
-            Nothing requested yet. Start with the fridge — it's the one most families are glad they
-            did.
-          </p>
+  return (
+    <>
+      <div className="pointer-events-none fixed inset-x-0 bottom-0 z-30">
+        <div className="mx-auto max-w-[480px] p-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
+          {live.length === 0 ? (
+            <p className="pointer-events-auto rounded-card border border-dashed border-deep/22 bg-paper/90 px-4 py-3.5 text-[17px] leading-[1.45] text-deep/68 backdrop-blur">
+              Nothing requested yet. Start with the fridge — it's the one most families are glad
+              they did.
+            </p>
+          ) : (
+            <button
+              type="button"
+              onClick={() => setOpen(true)}
+              className="pointer-events-auto flex w-full cursor-pointer items-center justify-between gap-4 rounded-card border border-deep/14 bg-paper px-4 py-3.5 text-left"
+            >
+              <span>
+                <span className="block text-[17px] font-semibold">
+                  {live.length} {live.length === 1 ? 'request' : 'requests'}
+                </span>
+                <span className="tnum block text-[14px] text-deep/55">
+                  {money(total)} · none charged yet
+                </span>
+              </span>
+              <span className="text-[15px] font-semibold text-water">Show</span>
+            </button>
+          )}
         </div>
       </div>
-    )
-  }
 
-  return (
-    <div className="fixed inset-x-0 bottom-0 z-30 border-t border-deep/10 bg-paper/95 backdrop-blur">
-      <div className="mx-auto max-w-[480px] px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
-        {open && (
-          <ul className="max-h-[50vh] divide-y divide-deep/10 overflow-y-auto pt-3">
-            {live.map((request) => {
+      {open && (
+        <Sheet label="Your requests" onClose={() => setOpen(false)}>
+          <div className="flex items-baseline justify-between gap-4">
+            <h2 className="text-[20px] font-semibold">Your requests</h2>
+            <button
+              type="button"
+              onClick={() => setOpen(false)}
+              className="cursor-pointer text-[15px] text-water"
+            >
+              Hide
+            </button>
+          </div>
+
+          <ul className="mt-2">
+            {live.map((request, i) => {
               const service = data.services.find((s) => s.id === request.serviceId)!
               const provider = data.providers.find((p) => p.id === service.providerId)!
+              const cancellable = request.status === 'requested' || request.status === 'confirmed'
+
               return (
-                <li key={request.id} className="py-3">
-                  <div className="flex items-baseline justify-between gap-3">
-                    <p className="text-[15px] font-medium text-deep">{service.title}</p>
-                    <span className="tnum text-[15px] text-deep/70">{money(request.estimate)}</span>
-                  </div>
-                  <div className="mt-1.5 flex items-center gap-2">
-                    <StatusDots status={request.status} />
-                    <span className="text-[15px] text-deep/70">
+                <li
+                  key={request.id}
+                  className={`flex items-start justify-between gap-4 py-3 ${
+                    i ? 'border-t border-deep/8' : ''
+                  }`}
+                >
+                  <div className="min-w-0">
+                    <p className="text-[17px] leading-[1.35]">{service.title}</p>
+                    <p className="mt-0.5 text-[14px] text-deep/55">
                       {statusLabel(request, service, provider)}
-                    </span>
+                      {cancellable && (
+                        <>
+                          {' · '}
+                          <button
+                            type="button"
+                            onClick={() => cancelRequest(request.id)}
+                            className="cursor-pointer text-clay underline underline-offset-2"
+                          >
+                            Cancel request
+                          </button>
+                        </>
+                      )}
+                    </p>
                   </div>
-                  {request.status === 'requested' && (
-                    <button
-                      type="button"
-                      onClick={() => cancelRequest(request.id)}
-                      className="mt-1.5 cursor-pointer text-[15px] text-clay underline underline-offset-4"
-                    >
-                      Cancel request
-                    </button>
-                  )}
+                  <span className="tnum shrink-0 text-[17px] font-semibold">
+                    {money(request.estimate)}
+                  </span>
                 </li>
               )
             })}
           </ul>
-        )}
 
-        {open && (
-          <a
-            href={whatsappLink(live, stay)}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-3 block text-[15px] text-water underline underline-offset-4"
-          >
-            Send these to your host on WhatsApp
-          </a>
-        )}
-
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          aria-expanded={open}
-          className="flex w-full cursor-pointer items-center justify-between py-3"
-        >
-          <span className="font-medium text-deep">Your requests ({live.length})</span>
-          <span className="tnum text-[15px] text-deep/60">
-            {money(total)} {open ? '▾' : '▴'}
-          </span>
-        </button>
-      </div>
-    </div>
+          <div className="mt-3 flex items-baseline justify-between gap-4 border-t border-deep/14 pt-3">
+            <span className="text-[15px] text-deep/62">Total, paid through your host</span>
+            <span className="tnum text-[17px] font-semibold">{money(total)}</span>
+          </div>
+        </Sheet>
+      )}
+    </>
   )
-}
-
-/** Stretch item from the spec: hand the whole list over in one message. */
-function whatsappLink(requests: ServiceRequest[], stay: Stay): string {
-  const property = data.properties.find((p) => p.id === stay.propertyId)!
-  const lines = requests.map((request) => {
-    const service = data.services.find((s) => s.id === request.serviceId)!
-    const provider = data.providers.find((p) => p.id === service.providerId)!
-    const slot = requestedSlot(request, service)
-    return `• ${service.title} — ${provider.firstName}${slot ? `, ${slot}` : ''} (${money(
-      request.estimate,
-    )})`
-  })
-
-  const text = [
-    `${property.name} — ${stay.guestName}`,
-    `${formatStayRange(stay.arrival, stay.departure)}`,
-    '',
-    ...lines,
-  ].join('\n')
-
-  return `https://wa.me/?text=${encodeURIComponent(text)}`
 }

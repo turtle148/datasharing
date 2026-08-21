@@ -4,8 +4,8 @@ import type { Field, Stay } from '../lib/types'
 
 type Value = string | number | string[]
 
-const inputClass =
-  'w-full rounded-xl border border-deep/15 bg-paper px-3 py-2.5 text-deep placeholder:text-deep/35'
+const control =
+  'w-full rounded-control border border-deep/22 bg-paper px-3.5 py-3 text-[17px] leading-[1.3] placeholder:text-deep/40'
 
 /** Every input in the request sheet is driven by the service's fieldSchema. */
 export default function FieldInput({
@@ -22,18 +22,21 @@ export default function FieldInput({
   const id = `field-${field.id}`
 
   return (
-    <div>
-      <label htmlFor={id} className="block text-[15px] font-medium text-deep/80">
+    <div className={field.half ? 'min-w-0 flex-1' : ''}>
+      <label
+        htmlFor={id}
+        className="block text-[13px] font-semibold tracking-[0.08em] text-deep/60 uppercase"
+      >
         {field.label}
       </label>
 
-      <div className="mt-1.5">{control()}</div>
+      <div className="mt-1.5">{input()}</div>
 
       {field.help && <p className="mt-1.5 text-[14px] text-deep/55">{field.help}</p>}
     </div>
   )
 
-  function control() {
+  function input() {
     switch (field.type) {
       case 'date': {
         const { min, max } = dateBounds(field.range, stay)
@@ -41,7 +44,7 @@ export default function FieldInput({
           <input
             id={id}
             type="date"
-            className={`${inputClass} tnum`}
+            className={`${control} tnum`}
             value={String(value ?? '')}
             min={min}
             max={max}
@@ -56,7 +59,7 @@ export default function FieldInput({
           <input
             id={id}
             type="time"
-            className={`${inputClass} tnum`}
+            className={`${control} tnum`}
             value={String(value ?? '')}
             required={field.required}
             onChange={(e) => onChange(e.target.value)}
@@ -68,7 +71,7 @@ export default function FieldInput({
           <input
             id={id}
             type="text"
-            className={inputClass}
+            className={control}
             value={String(value ?? '')}
             placeholder={field.placeholder}
             required={field.required}
@@ -80,8 +83,7 @@ export default function FieldInput({
         return (
           <textarea
             id={id}
-            rows={3}
-            className={`${inputClass} resize-none`}
+            className={`${control} min-h-[76px] resize-none leading-[1.45]`}
             value={String(value ?? '')}
             placeholder={field.placeholder}
             onChange={(e) => onChange(e.target.value)}
@@ -90,18 +92,26 @@ export default function FieldInput({
 
       case 'select':
         return (
-          <select
-            id={id}
-            className={inputClass}
-            value={String(value ?? '')}
-            onChange={(e) => onChange(e.target.value)}
-          >
-            {field.options?.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
+          <div className="relative">
+            <select
+              id={id}
+              className={`${control} appearance-none pr-10`}
+              value={String(value ?? '')}
+              onChange={(e) => onChange(e.target.value)}
+            >
+              {field.options?.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute top-1/2 right-3.5 -translate-y-1/2 text-deep/45"
+            >
+              ▾
+            </span>
+          </div>
         )
 
       case 'checkboxes': {
@@ -120,10 +130,8 @@ export default function FieldInput({
                       on ? chosen.filter((v) => v !== option.value) : [...chosen, option.value],
                     )
                   }
-                  className={`cursor-pointer rounded-full px-3 py-2 text-[15px] ${
-                    on
-                      ? 'bg-water text-paper'
-                      : 'border border-deep/15 bg-paper text-deep/75'
+                  className={`cursor-pointer rounded-full px-3.5 py-2.5 text-[15px] leading-none ${
+                    on ? 'bg-water text-paper' : 'border border-deep/22 bg-paper'
                   }`}
                 >
                   {option.label}
@@ -142,17 +150,17 @@ export default function FieldInput({
         const set = (next: number) => onChange(Math.min(Math.max(next, min), max))
 
         return (
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3.5">
             <button
               type="button"
               onClick={() => set(current - step)}
               disabled={current <= min}
-              aria-label={`Fewer ${field.label.toLowerCase()}`}
-              className="h-11 w-11 cursor-pointer rounded-full border border-deep/15 bg-paper text-xl disabled:opacity-35"
+              aria-label={`Fewer — ${field.label.toLowerCase()}`}
+              className="h-11 w-11 cursor-pointer rounded-full border border-deep/22 bg-paper text-[20px] leading-none disabled:opacity-35"
             >
               −
             </button>
-            <span id={id} className="tnum min-w-16 text-center text-lg">
+            <span id={id} className="tnum min-w-6 text-center text-[17px] font-semibold">
               {current}
               {field.suffix ? ` ${field.suffix}` : ''}
             </span>
@@ -160,8 +168,8 @@ export default function FieldInput({
               type="button"
               onClick={() => set(current + step)}
               disabled={current >= max}
-              aria-label={`More ${field.label.toLowerCase()}`}
-              className="h-11 w-11 cursor-pointer rounded-full border border-deep/15 bg-paper text-xl disabled:opacity-35"
+              aria-label={`More — ${field.label.toLowerCase()}`}
+              className="h-11 w-11 cursor-pointer rounded-full border border-deep/22 bg-paper text-[20px] leading-none disabled:opacity-35"
             >
               +
             </button>
