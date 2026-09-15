@@ -1,9 +1,10 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
+import BrandBar from '../components/BrandBar'
 import ProviderSlot from '../components/ProviderSlot'
 import ResetDemo from '../components/ResetDemo'
 import { formatDay, formatStayRange, money } from '../lib/format'
-import { PRODUCT_NAME, guestUrl } from '../lib/links'
+import { guestUrl } from '../lib/links'
 import { commission } from '../lib/pricing'
 import { advanceLabel, requestedSlot, statusLabel } from '../lib/status'
 import { advanceRequest, data, useRequests } from '../lib/store'
@@ -27,6 +28,7 @@ export default function Agency() {
 
   return (
     <div className="min-h-dvh bg-stone">
+      <BrandBar width="max-w-[1200px]" />
       <TopBar />
 
       <main className="mx-auto max-w-[1200px] px-6 py-6">
@@ -77,7 +79,7 @@ function TopBar() {
         <div>
           <p className="text-[17px] font-semibold">{data.agency.name}</p>
           <p className="text-[14px] text-deep/55">
-            {PRODUCT_NAME} guest services · {data.properties.length} properties
+            Guest services · {data.properties.length} properties
           </p>
         </div>
         <div className="flex items-center gap-5">
@@ -107,7 +109,7 @@ function GuestLinkButton({ property, outlined }: { property: Property; outlined?
       className={`cursor-pointer rounded-control text-[15px] font-semibold ${
         outlined
           ? 'border border-water/40 px-3 py-2 text-water'
-          : 'bg-water px-4 py-2.5 text-paper'
+          : 'bg-mint px-4 py-2.5 text-deep'
       }`}
     >
       {copied ? 'Link copied' : 'Get guest link'}
@@ -145,7 +147,7 @@ function Stats({ requests }: { requests: ServiceRequest[] }) {
         <p className="text-[13px] font-semibold tracking-[0.12em] text-paper/60 uppercase">
           Your share · {stats.month}
         </p>
-        <p className="font-display tnum text-[72px] leading-none font-semibold tracking-[-0.03em] text-citron">
+        <p className="font-display tnum text-[72px] leading-none tracking-[-0.02em] text-mint">
           {money(stats.share)}
         </p>
         <p className="text-[15px] leading-[1.45] text-paper/68">
@@ -166,7 +168,7 @@ function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex items-center justify-between gap-4 rounded-card bg-paper px-5 py-4">
       <p className="text-[13px] font-semibold tracking-[0.12em] text-deep/60 uppercase">{label}</p>
-      <p className="font-display tnum text-[32px] leading-none font-semibold tracking-[-0.02em]">
+      <p className="font-display tnum text-[32px] leading-none tracking-[-0.01em]">
         {value}
       </p>
     </div>
@@ -255,7 +257,7 @@ function RequestTable({ requests }: { requests: ServiceRequest[] }) {
                     aria-hidden="true"
                     className="h-[7px] w-[7px] shrink-0 rounded-full"
                     style={{
-                      background: closed ? 'rgba(14,38,34,0.25)' : 'var(--color-citron)',
+                      background: closed ? 'rgba(15,28,34,0.25)' : 'var(--color-mint)',
                     }}
                   />
                   <span className={request.status === 'cancelled' ? 'text-clay' : ''}>
@@ -387,8 +389,8 @@ function Providers() {
                 <span
                   className="rounded-full px-2 py-0.5 text-[13px]"
                   style={{
-                    background: 'color-mix(in srgb, var(--color-citron) 16%, transparent)',
-                    border: '1px solid color-mix(in srgb, var(--color-citron) 40%, transparent)',
+                    background: 'color-mix(in srgb, var(--color-mint) 22%, transparent)',
+                    border: '1px solid color-mix(in srgb, var(--color-mint) 55%, transparent)',
                   }}
                 >
                   Verified

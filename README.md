@@ -108,29 +108,35 @@ already happened.
 
 ## Design
 
-> **Brand pending.** The name is Otiara; the palette and typefaces below are
-> still the ones from the previous design pass. Both live in one place — the
-> `@theme` block in `src/index.css` and the two `@font-face` rules above it — so
-> swapping in Otiara's own identity touches no component.
-
-Built to the design handoff in `design/` — `handoff.md` is the
-written spec, `Handled.dc.html` is the design canvas (open it in a browser).
-Tokens live in the `@theme` block of `src/index.css`:
+Built to the design handoff in `design/` — `handoff.md` is the written spec,
+`Handled.dc.html` is the design canvas (open it in a browser) — and then
+rebranded to Otiara. The identity lives in one place: the `@theme` block of
+`src/index.css` and the `@font-face` rules above it.
 
 | Token | Hex | Use |
 | --- | --- | --- |
-| `--color-deep` | `#0E2622` | text, pitch background, console stat panel, timeline markers |
-| `--color-water` | `#1A5049` | primary buttons, links, eyebrows, selected chips, focus ring |
-| `--color-stone` | `#E8EDEB` | page background, chip fills |
-| `--color-paper` | `#FCFDFC` | cards, sheets, console surfaces |
-| `--color-citron` | `#C9922B` | status dots, the agency's share, Verified badge |
-| `--color-clay` | `#9E4A32` | cancel and error affordances only |
+| `--color-deep` | `#0F1C22` | brand bar, text, console share panel, timeline markers |
+| `--color-mint` | `#5FE3BF` | the one call to action, selected chips, status dots, the share figure |
+| `--color-water` | `#0E6E58` | links, eyebrows, monograms, outlined buttons, focus ring |
+| `--color-stone` | `#EBE3D9` | page ground |
+| `--color-paper` | `#FFFFFF` | cards, sheets, console surfaces |
+| `--color-clay` | `#A9452F` | cancel and error affordances only |
 
-Bricolage Grotesque is the display face in exactly four places — the guest
-headline, the pitch wordmark, console stat numbers, provider monograms — and
-Public Sans carries everything else, never below 14px on the guest surface.
-Both are self-hosted in `src/fonts/`. No shadows anywhere except the focus ring:
-depth is paper on stone. Motion is three specified moments (sheet 260ms, scrim
+Mint is a fill, never small text: the primary button is mint with dark text, the
+way the site's own call to action is. Links and labels take the deeper teal so
+they stay legible on cream.
+
+Playfair Display carries the guest headline (with the family's name in italic,
+the way otiara.it sets the second half of its headlines), the console figures
+and the provider monograms; Inter carries everything else and the wordmark, never
+below 14px on the guest surface. Both are self-hosted in `src/fonts/`.
+
+**Read off screenshots, not the stylesheet** — otiara.it is blocked by the
+network egress proxy from the build environment, so the hex values are sampled
+by eye and the typefaces are the closest widely available match. If the real
+brand uses different faces, they are a two-line change here.
+
+No shadows anywhere except the focus ring: depth is paper on the cream ground. Motion is three specified moments (sheet 260ms, scrim
 200ms, card settle 220ms) and nothing else, all disabled under
 `prefers-reduced-motion`.
 

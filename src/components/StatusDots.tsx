@@ -11,7 +11,7 @@ export default function StatusDots({ status }: { status: RequestStatus }) {
         <span
           key={step}
           className="h-[7px] w-[7px] rounded-full"
-          style={{ background: i <= reached ? 'var(--color-citron)' : 'rgba(14,38,34,0.18)' }}
+          style={{ background: i <= reached ? 'var(--color-mint)' : 'rgba(15,28,34,0.18)' }}
         />
       ))}
     </span>

@@ -59,7 +59,7 @@ export default function RequestSheet({
           <button
             type="submit"
             form="request-form"
-            className="mt-3 w-full cursor-pointer rounded-control bg-water px-4 py-3.5 text-[17px] font-semibold text-paper"
+            className="mt-3 w-full cursor-pointer rounded-control bg-mint px-4 py-3.5 text-[17px] font-semibold text-deep"
           >
             Request this
           </button>

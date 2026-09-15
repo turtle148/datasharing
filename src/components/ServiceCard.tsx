@@ -23,15 +23,15 @@ export default function ServiceCard({
   return (
     <article
       className={`overflow-hidden rounded-card bg-paper ${
-        live ? 'animate-settle border border-citron' : 'border border-deep/10'
+        live ? 'animate-settle border border-mint' : 'border border-deep/10'
       }`}
     >
       {live && (
         <div
           className="border-b px-4 py-3"
           style={{
-            background: 'color-mix(in srgb, var(--color-citron) 10%, transparent)',
-            borderColor: 'color-mix(in srgb, var(--color-citron) 35%, transparent)',
+            background: 'color-mix(in srgb, var(--color-mint) 16%, transparent)',
+            borderColor: 'color-mix(in srgb, var(--color-mint) 45%, transparent)',
           }}
         >
           <div className="flex items-center">

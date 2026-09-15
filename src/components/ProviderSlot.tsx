@@ -26,7 +26,7 @@ export default function ProviderSlot({
     return (
       <div
         style={{ ...box, fontSize: monogramSize[size] ?? '20px' }}
-        className="font-display flex shrink-0 items-center justify-center bg-monogram leading-none font-semibold text-water"
+        className="font-display flex shrink-0 items-center justify-center bg-monogram leading-none text-water"
         aria-hidden="true"
       >
         {provider.firstName.charAt(0)}

@@ -37,7 +37,7 @@ export default function Sheet({
         aria-label="Close"
         onClick={onClose}
         className="animate-scrim absolute inset-0 cursor-pointer"
-        style={{ background: 'rgba(14,38,34,0.28)' }}
+        style={{ background: 'rgba(15,28,34,0.30)' }}
       />
 
       <div

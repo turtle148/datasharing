@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import BrandBar from '../components/BrandBar'
 import ProviderSlot from '../components/ProviderSlot'
 import RequestSheet from '../components/RequestSheet'
 import RequestsTray from '../components/RequestsTray'
@@ -34,12 +35,13 @@ export default function GuestPortal({ token }: { token?: string }) {
 
   return (
     <div className="min-h-dvh bg-stone pb-40">
+      <BrandBar />
       <PropertyBar property={property} />
 
       <main className="mx-auto max-w-[480px] px-4">
         <header className="pt-6">
-          <h1 className="font-display text-[34px] leading-[1.05] font-bold tracking-[-0.03em]">
-            Welcome, {stay.guestName}
+          <h1 className="font-display text-[34px] leading-[1.1] tracking-[-0.01em]">
+            Welcome, <em>{stay.guestName}</em>
           </h1>
           <p className="tnum mt-2 text-[15px] text-deep/62">
             {formatStayRange(stay.arrival, stay.departure)} · {partyLine(stay)}
@@ -142,6 +144,7 @@ function ExpiredLink() {
 
   return (
     <div className="min-h-dvh bg-stone">
+      <BrandBar />
       <div className="border-b border-deep/10 bg-paper">
         <div className="mx-auto max-w-[480px] px-4 pt-3.5 pb-3">
           <p className="text-[12.5px] tracking-[0.14em] text-water uppercase">
@@ -151,7 +154,7 @@ function ExpiredLink() {
       </div>
 
       <main className="mx-auto flex max-w-[480px] flex-col gap-4 px-4 pt-8">
-        <h1 className="font-display text-[34px] leading-[1.05] font-bold tracking-[-0.03em]">
+        <h1 className="font-display text-[34px] leading-[1.1] tracking-[-0.01em]">
           This link has ended
         </h1>
         <p className="text-[17px] leading-[1.5] text-deep/70">

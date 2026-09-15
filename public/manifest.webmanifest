@@ -3,8 +3,8 @@
   "short_name": "Otiara",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#E8EDEB",
-  "theme_color": "#E8EDEB",
+  "background_color": "#EBE3D9",
+  "theme_color": "#EBE3D9",
   "icons": [
     { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
   ]

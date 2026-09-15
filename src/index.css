@@ -2,43 +2,49 @@
 
 /* Self-hosted, because a demo shouldn't depend on the meeting room's wifi. */
 @font-face {
-  font-family: "Bricolage Grotesque";
-  src: url("./fonts/bricolage-grotesque.woff2") format("woff2");
+  font-family: "Playfair Display";
+  src: url("./fonts/playfair-display.woff2") format("woff2");
   font-weight: 400 700;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Public Sans";
-  src: url("./fonts/public-sans.woff2") format("woff2");
+  font-family: "Playfair Display";
+  src: url("./fonts/playfair-display-italic.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("./fonts/inter.woff2") format("woff2");
   font-weight: 400 700;
   font-style: normal;
   font-display: swap;
 }
 
 /*
- * BRAND — the only place the identity lives. Swapping Otiara's own palette and
- * typefaces in means changing the six colours below and the two @font-face
- * families above; nothing else in the app hard-codes a colour or a font.
- * Current values are the ones from the previous design pass, kept until the
- * values from otiara.it are in hand.
+ * BRAND — the only place Otiara's identity lives: the dark chrome, the mint
+ * call to action, the cream ground and the serif/sans pairing, read off
+ * otiara.it. Nothing else in the app hard-codes a colour or a font.
  */
 @theme {
-  --color-deep: #0E2622;
-  --color-water: #1A5049;
-  --color-stone: #E8EDEB;
-  --color-paper: #FCFDFC;
-  --color-citron: #C9922B;
-  --color-clay: #9E4A32;
+  --color-deep: #0F1C22;
+  --color-mint: #5FE3BF;
+  --color-water: #0E6E58;
+  --color-stone: #EBE3D9;
+  --color-paper: #FFFFFF;
+  --color-clay: #A9452F;
 
-  /* Fixed surfaces called out by name in the design. */
-  --color-pill: #EDF2F0;
-  --color-rowfill: #EFF3F1;
-  --color-monogram: #E4EDE9;
+  /* Fixed surfaces, derived from the ground rather than invented. */
+  --color-pill: #F1EBE2;
+  --color-rowfill: #F6F2EC;
+  --color-monogram: #E4EFEA;
 
-  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "Public Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Playfair Display", ui-serif, Georgia, serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
 
   --radius-card: 14px;
   --radius-control: 10px;
@@ -75,11 +81,11 @@
     color: inherit;
   }
 
-  /* Depth comes from paper on stone, never elevation — the ring is the one shadow. */
+  /* Depth comes from paper on the cream ground, never elevation. */
   :focus-visible {
     outline: 1px solid var(--color-water);
     outline-offset: 0;
-    box-shadow: 0 0 0 2px rgb(26 80 73 / 0.14);
+    box-shadow: 0 0 0 2px rgb(14 110 88 / 0.16);
   }
 }
 
@@ -93,7 +99,7 @@
 
 /* The photo slot before a real photograph is dropped in. */
 @utility photo-hatch {
-  background-image: repeating-linear-gradient(45deg, #E8EDEB 0 3px, #F4F7F5 3px 6px);
+  background-image: repeating-linear-gradient(45deg, #E4EFEA 0 3px, #F2F8F5 3px 6px);
 }
 
 @keyframes sheet-up {

@@ -131,7 +131,7 @@ export default function FieldInput({
                     )
                   }
                   className={`cursor-pointer rounded-full px-3.5 py-2.5 text-[15px] leading-none ${
-                    on ? 'bg-water text-paper' : 'border border-deep/22 bg-paper'
+                    on ? 'bg-mint text-deep' : 'border border-deep/22 bg-paper'
                   }`}
                 >
                   {option.label}
