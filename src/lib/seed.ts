@@ -62,13 +62,13 @@ export const providers: Provider[] = [
   {
     id: 'marco',
     firstName: 'Marco',
-    role: 'cooks in your kitchen, Salò',
+    role: 'cooks for the houses, Salò',
     town: 'Salò',
     photo: portrait('men', 32),
     blurb:
-      'I cook in your kitchen and clean it before I go — lake fish, a pasta the children will actually eat, and something for the adults. You stay at the table.',
+      'I cook the same day and leave it ready in the kitchen — lake fish, a pasta the children will actually eat, and something for the adults.',
     verified: ['ID', 'insurance', 'HACCP certificate', 'references'],
-    confirmedNote: 'Marco will confirm the menu and what time to start',
+    confirmedNote: 'Marco will confirm the menu and when the food will be dropped off',
   },
   {
     id: 'giulia',
@@ -215,20 +215,20 @@ export const services: Service[] = [
   {
     id: 'chef-dinner',
     providerId: 'marco',
-    title: 'Dinner cooked at the villa on your first night',
+    title: 'Dinner ready when you arrive at your accommodation',
     icon: 'pot',
-    summary: 'A cook in your kitchen, and the kitchen left clean.',
+    summary: 'A meal waiting in the kitchen, so nobody cooks on the first night.',
     phase: 'first_evening',
     priceModel: 'per_person',
     priceValue: 65,
     unit: 'adult',
     leadTime: 'Book at least 48 hours ahead',
     description:
-      "Dinner is cooked in your own kitchen and the kitchen is cleaned before anyone leaves — lake fish, a pasta the children will actually eat, and something for the adults. You stay at the table.",
+      "Dinner is cooked the same day and left in the kitchen, ready to heat and put on the table — lake fish, a pasta the children will actually eat, and something for the adults. Nothing to prepare and nothing to clear up but the plates.",
     multiplierFields: ['adults'],
     fieldSchema: [
-      { id: 'date', type: 'date', label: 'Which evening', range: 'stay', required: true, half: true },
-      { id: 'time', type: 'time', label: 'Sit down at', required: true, half: true },
+      { id: 'date', type: 'date', label: 'Which day', required: true, half: true },
+      { id: 'time', type: 'time', label: 'Arriving at', required: true, half: true },
       { id: 'adults', type: 'stepper', label: 'Adults', min: 1, max: 16, defaultValue: 2 },
       {
         id: 'children',
@@ -245,9 +245,9 @@ export const services: Service[] = [
         label: 'Menu',
         required: true,
         options: [
-          { value: 'lake', label: 'Lake and garden — four courses' },
-          { value: 'tasting', label: 'Tasting menu — six courses', priceDelta: 18 },
-          { value: 'simple', label: 'Simple family dinner — three courses', priceDelta: -12 },
+          { value: 'lake', label: 'Lake fish with potatoes and salad' },
+          { value: 'tasting', label: 'Three courses — antipasti, pasta, dolce', priceDelta: 18 },
+          { value: 'simple', label: 'Lasagne and salad — the one the children finish', priceDelta: -12 },
         ],
         scalesWithMultiplier: true,
         help: 'Per adult, on top of the base price',
