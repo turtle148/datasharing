@@ -17,6 +17,13 @@
   font-display: swap;
 }
 
+/*
+ * BRAND — the only place the identity lives. Swapping Otiara's own palette and
+ * typefaces in means changing the six colours below and the two @font-face
+ * families above; nothing else in the app hard-codes a colour or a font.
+ * Current values are the ones from the previous design pass, kept until the
+ * values from otiara.it are in hand.
+ */
 @theme {
   --color-deep: #0E2622;
   --color-water: #1A5049;

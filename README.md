@@ -1,6 +1,6 @@
-# Handled — guest services prototype
+# Otiara — guest services prototype
 
-A clickable prototype of **Handled**: a guest-services layer a property agency
+A clickable prototype of **Otiara**: a guest-services layer a property agency
 attaches to bookings it already has. A family arriving at a villa on Lake Garda
 opens a private link with their own name and dates on it and arranges the things
 a parent actually needs; the agency works the other side in a console and takes
@@ -13,12 +13,16 @@ server. Everything is seeded data held in the browser.
 
 | Route | Who sees it | Job |
 | --- | --- | --- |
+| `/` | whoever you send the demo link to | the guest portal for the Brandt family's stay |
 | `/s/:stayToken` | the guest, on their phone (390px) | browse and request services |
 | `/agency` | the agency, on a laptop (1440px) | requests arriving, revenue share |
-| `/` | you, in the meeting | pitch screen with a scannable QR |
 
-Demo stays: `/s/villa-serena-0811`, `/s/ca-del-porto-0108`, `/s/casa-oliva-0815`.
-Any other token shows the expired-link screen rather than a 404.
+**The root is the demo link.** It opens the guest portal on a real stay with all
+fourteen services, so the bare domain is what you send — no landing page, no QR,
+nothing to explain first. The console is a discreet link in the guest footer.
+
+Other stays: `/s/ca-del-porto-0108`, `/s/casa-oliva-0815`. Any token that does
+not resolve shows the expired-link screen rather than a 404.
 
 ## Running it
 
@@ -37,14 +41,14 @@ configured for Netlify (`public/_redirects`) and Vercel (`vercel.json`); on othe
 hosts, point every path at `index.html` or `/s/:token` will 404 on a refresh.
 
 ```bash
-npm run build && (cd dist && zip -r ../release/handled-netlify.zip .)
+npm run build && (cd dist && zip -r ../release/otiara-netlify.zip .)
 ```
 
 ### Single-file build (for a hosted preview)
 
 ```bash
 npm run build:artifact          # dist-artifact/artifact.html — one self-contained file
-node build-artifact-page.mjs    # dist-artifact/handled.html — same page, body fragment
+node build-artifact-page.mjs    # dist-artifact/otiara.html — same page, body fragment
 ```
 
 Everything is inlined, including the fonts, and routes move to the hash
@@ -52,17 +56,17 @@ Everything is inlined, including the fonts, and routes move to the hash
 hosts block browser storage, so the store falls back to memory there: state
 survives moving between routes but not a reload.
 
-## Running the pitch
+## Running the demo
 
-1. Open `/` and let the owner scan the QR. They land on Villa Serena with the
-   Brandt family's name and dates already on it.
-2. Let them tap **Fridge stocked before you arrive**, set the day and who is
-   eating, and hit **Request this**. The card takes the requested state in place
-   and the tray at the bottom counts up.
+1. Send the link. It opens on Villa Serena with the Brandt family's name and
+   dates already on it.
+2. They tap **Fridge stocked before you arrive**, set the day and who is eating,
+   and hit **Request this**. The card takes the requested state in place and the
+   tray at the bottom counts up.
 3. Turn the laptop round to `/agency`: the request is in the table with their
    cut beside it. **Confirm with Elena**, then **Mark scheduled** — the guest
    view catches up within a couple of seconds.
-4. **Reset demo** (pitch screen and console footer) puts the seed back.
+4. **Reset demo** (console footer) puts the seed back.
 
 **Both windows have to be the same browser.** State lives in `localStorage`, so
 the portal and the console sync across tabs and windows on one machine (a
@@ -80,9 +84,9 @@ src/lib/seed.ts      the agency, 3 properties, 3 stays, 10 providers, 14 service
 src/lib/pricing.ts   one estimator for every service; live sheet estimates
 src/lib/storage.ts   localStorage where it exists, memory where it doesn't
 src/lib/store.ts     the shared store, with cross-tab sync
-src/routes/          GuestPortal (and the expired screen), Agency, Pitch
+src/routes/          GuestPortal (and the expired screen), Agency
 src/components/      ServiceCard, RequestSheet, Sheet, FieldInput, RequestsTray,
-                     ProviderSlot, StatusDots, QrCode, ResetDemo
+                     ProviderSlot, StatusDots, ResetDemo
 ```
 
 **Services are data, not code.** Each service carries a `fieldSchema`, and the
@@ -104,7 +108,12 @@ already happened.
 
 ## Design
 
-Built to the **Handled** design handoff in `design/` — `handoff.md` is the
+> **Brand pending.** The name is Otiara; the palette and typefaces below are
+> still the ones from the previous design pass. Both live in one place — the
+> `@theme` block in `src/index.css` and the two `@font-face` rules above it — so
+> swapping in Otiara's own identity touches no component.
+
+Built to the design handoff in `design/` — `handoff.md` is the
 written spec, `Handled.dc.html` is the design canvas (open it in a browser).
 Tokens live in the `@theme` block of `src/index.css`:
 
@@ -134,11 +143,12 @@ depth is paper on stone. Motion is three specified moments (sheet 260ms, scrim
   format instead of the design's `Sun 8 Aug`.
 - **Mark scheduled** takes the slot the guest asked for rather than prompting
   for a time — one less invented screen in a demo.
-- **Get guest link** copies and confirms inline, as designed; the printable QR
-  download sits on the pitch screen instead of in a property row.
-- **Prototype navigation** is a small demo line in the guest footer and the
-  links already in the console and pitch screens. The design has no nav chrome
-  because each screen was drawn in isolation.
+- **Get guest link** copies and confirms inline, as designed.
+- **No pitch screen and no QR code.** The demo is a link that is sent, not a
+  screen that is scanned, so the root is the guest portal itself.
+- **Prototype navigation** is a small demo line in the guest footer and a
+  *Guest view* link in the console. The design has no nav chrome because each
+  screen was drawn in isolation.
 - **Validation** is the browser's own on required fields, not the designed
   inline clay message.
 - The design's data note is resolved as it asked: the tray total is derived from
@@ -153,8 +163,8 @@ depth is paper on stone. Motion is three specified moments (sheet 260ms, scrim
 - **Prices** (babysitting €18–20/hour, chef €65/head, Verona transfer €120,
   mid-stay clean €70) are plausible for Garda in August; check them against what
   the agency knows before the meeting.
-- **Names** — the agency, providers and guests are invented, and `Handled` is a
-  working name.
+- **Names** — the agency, providers and guests are invented. In the demo Otiara
+  is the platform and *Lago Verde Property Management* is the customer agency.
 
 ## Not built
 

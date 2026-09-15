@@ -11,7 +11,7 @@ if (scripts.length !== 1) throw new Error(`expected one module script, found ${s
 const script = scripts[0].replace(' crossorigin', '')
 
 writeFileSync(
-  'dist-artifact/handled.html',
+  'dist-artifact/otiara.html',
   `<title>${title}</title>\n${style}\n<div id="root"></div>\n${script}\n`,
 )
-console.log('wrote dist-artifact/handled.html')
+console.log('wrote dist-artifact/otiara.html')

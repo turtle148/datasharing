@@ -15,15 +15,15 @@ import {
 import { data, useStayRequests } from '../lib/store'
 import type { Property, Service } from '../lib/types'
 
-export default function GuestPortal() {
-  const { stayToken = '' } = useParams()
+export default function GuestPortal({ token }: { token?: string }) {
+  const { stayToken = token ?? '' } = useParams()
   const stay = data.stays.find((s) => s.token === stayToken)
   const requests = useStayRequests(stayToken)
   const [openService, setOpenService] = useState<Service | null>(null)
   const property = data.properties.find((p) => p.id === stay?.propertyId)
 
   useEffect(() => {
-    document.title = property ? `${property.name} · Handled` : 'Handled'
+    document.title = property ? `${property.name} · Otiara` : 'Otiara'
   }, [property])
 
   if (!stay || !property) return <ExpiredLink />
@@ -124,15 +124,11 @@ function PropertyBar({ property }: { property: Property }) {
   )
 }
 
-/** Not part of the product — the way round a demo without a browser address bar. */
+/** Not part of the product — the way into the other side of the demo. */
 export function DemoNav({ className = '' }: { className?: string }) {
   return (
     <p className={`mt-4 text-[13px] text-deep/35 ${className}`}>
       Demo ·{' '}
-      <Link to="/" className="underline underline-offset-2">
-        pitch screen
-      </Link>{' '}
-      ·{' '}
       <Link to="/agency" className="underline underline-offset-2">
         agency console
       </Link>

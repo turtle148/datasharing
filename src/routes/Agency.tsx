@@ -82,7 +82,7 @@ function TopBar() {
         </div>
         <div className="flex items-center gap-5">
           <Link to="/" className="text-[15px] underline underline-offset-2">
-            Pitch screen
+            Guest view
           </Link>
           <GuestLinkButton property={data.properties[0]} />
         </div>

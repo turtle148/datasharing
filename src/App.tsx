@@ -1,15 +1,17 @@
-import { Navigate, Route, Routes } from 'react-router-dom'
-import Pitch from './routes/Pitch'
+import { Route, Routes } from 'react-router-dom'
 import GuestPortal from './routes/GuestPortal'
 import Agency from './routes/Agency'
+
+/** The demo link lands on a real stay, so the root is the guest portal itself. */
+export const DEMO_TOKEN = 'villa-serena-0811'
 
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<Pitch />} />
+      <Route path="/" element={<GuestPortal token={DEMO_TOKEN} />} />
       <Route path="/s/:stayToken" element={<GuestPortal />} />
       <Route path="/agency" element={<Agency />} />
-      <Route path="*" element={<Navigate to="/" replace />} />
+      <Route path="*" element={<GuestPortal />} />
     </Routes>
   )
 }
