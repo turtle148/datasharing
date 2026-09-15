@@ -7,6 +7,8 @@ export type RequestStatus = 'requested' | 'confirmed' | 'scheduled' | 'cancelled
 export interface Agency {
   id: string
   name: string
+  /** what the guest sees in a sentence — the full legal name is too long */
+  shortName: string
   town: string
   /** provider / agency / platform, summing to 1 */
   split: { provider: number; agency: number; platform: number }
@@ -74,24 +76,43 @@ export interface Field {
   range?: 'stay' | 'arrival_day' | 'departure_day'
   min?: number
   max?: number
+  /** what the field opens with, when the minimum is not a sensible default */
+  defaultValue?: number
   step?: number
   suffix?: string
   options?: FieldOption[]
   /** stepper: each unit above `free` adds this much */
   pricePerUnit?: number
   freeUnits?: number
-  /** prefill from the stay: number of adults, children, or the children's ages */
-  prefill?: 'adults' | 'children' | 'party' | 'children_ages' | 'arrival' | 'departure'
   /** option deltas on this field are charged per head/hour rather than once */
   scalesWithMultiplier?: boolean
   /** sits beside the next field rather than on its own row */
   half?: boolean
 }
 
+export type ServiceIcon =
+  | 'basket'
+  | 'car'
+  | 'key'
+  | 'pot'
+  | 'glass'
+  | 'bear'
+  | 'bed'
+  | 'washer'
+  | 'boat'
+  | 'bottle'
+  | 'leaf'
+  | 'clock'
+  | 'plane'
+
 export interface Service {
   id: string
+  /** who actually does it — the agency's business, never shown to the guest */
   providerId: string
   title: string
+  icon: ServiceIcon
+  /** one line on the card, under the title */
+  summary: string
   phase: Phase
   priceModel: PriceModel
   priceValue: number

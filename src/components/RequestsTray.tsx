@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Sheet from './Sheet'
 import { money } from '../lib/format'
-import { statusLabel } from '../lib/status'
+import { guestStatusLabel } from '../lib/status'
 import { cancelRequest, data } from '../lib/store'
 import type { ServiceRequest } from '../lib/types'
 
@@ -55,7 +55,6 @@ export default function RequestsTray({ requests }: { requests: ServiceRequest[] 
           <ul className="mt-2">
             {live.map((request, i) => {
               const service = data.services.find((s) => s.id === request.serviceId)!
-              const provider = data.providers.find((p) => p.id === service.providerId)!
               const cancellable = request.status === 'requested' || request.status === 'confirmed'
 
               return (
@@ -68,7 +67,7 @@ export default function RequestsTray({ requests }: { requests: ServiceRequest[] 
                   <div className="min-w-0">
                     <p className="text-[17px] leading-[1.35]">{service.title}</p>
                     <p className="mt-0.5 text-[14px] text-deep/55">
-                      {statusLabel(request, service, provider)}
+                      {guestStatusLabel(request, service)}
                       {cancellable && (
                         <>
                           {' · '}

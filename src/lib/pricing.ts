@@ -1,4 +1,4 @@
-import type { Field, Service, Stay } from './types'
+import type { Field, Service } from './types'
 
 export type FieldValues = Record<string, string | number | string[]>
 
@@ -7,34 +7,19 @@ export function num(value: unknown, fallback = 0): number {
   return Number.isFinite(n) ? n : fallback
 }
 
-/** The values a sheet opens with — prefilled from the stay wherever we can. */
-export function initialValues(service: Service, stay: Stay): FieldValues {
+/** The values a sheet opens with. Nothing is assumed about the stay. */
+export function initialValues(service: Service): FieldValues {
   const values: FieldValues = {}
   for (const field of service.fieldSchema) {
-    values[field.id] = initialValue(field, stay)
+    values[field.id] = initialValue(field)
   }
   return values
 }
 
-function initialValue(field: Field, stay: Stay): string | number | string[] {
-  switch (field.prefill) {
-    case 'adults':
-      return clampStepper(field, stay.adults)
-    case 'children':
-      return clampStepper(field, stay.children.length)
-    case 'party':
-      return clampStepper(field, stay.adults + stay.children.length)
-    case 'children_ages':
-      return stay.children.map((c) => c.age).join(' and ')
-    case 'arrival':
-      return stay.arrival
-    case 'departure':
-      return stay.departure
-  }
-
+function initialValue(field: Field): string | number | string[] {
   switch (field.type) {
     case 'stepper':
-      return field.min ?? 1
+      return field.defaultValue ?? field.min ?? 1
     case 'checkboxes':
       return []
     case 'select':
@@ -42,12 +27,6 @@ function initialValue(field: Field, stay: Stay): string | number | string[] {
     default:
       return ''
   }
-}
-
-function clampStepper(field: Field, value: number): number {
-  const min = field.min ?? 0
-  const max = field.max ?? Number.MAX_SAFE_INTEGER
-  return Math.min(Math.max(value, min), max)
 }
 
 /** How many hours / heads the base price is charged for. */

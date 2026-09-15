@@ -1,6 +1,6 @@
 import { dateBounds } from '../lib/format'
 import { num } from '../lib/pricing'
-import type { Field, Stay } from '../lib/types'
+import type { Field } from '../lib/types'
 
 type Value = string | number | string[]
 
@@ -11,12 +11,10 @@ const control =
 export default function FieldInput({
   field,
   value,
-  stay,
   onChange,
 }: {
   field: Field
   value: Value
-  stay: Stay
   onChange: (value: Value) => void
 }) {
   const id = `field-${field.id}`
@@ -39,7 +37,7 @@ export default function FieldInput({
   function input() {
     switch (field.type) {
       case 'date': {
-        const { min, max } = dateBounds(field.range, stay)
+        const { min } = dateBounds()
         return (
           <input
             id={id}
@@ -47,7 +45,6 @@ export default function FieldInput({
             className={`${control} tnum`}
             value={String(value ?? '')}
             min={min}
-            max={max}
             required={field.required}
             onChange={(e) => onChange(e.target.value)}
           />

@@ -17,9 +17,18 @@ server. Everything is seeded data held in the browser.
 | `/s/:stayToken` | the guest, on their phone (390px) | browse and request services |
 | `/agency` | the agency, on a laptop (1440px) | requests arriving, revenue share |
 
-**The root is the demo link.** It opens the guest portal on a real stay with all
-fourteen services, so the bare domain is what you send — no landing page, no QR,
-nothing to explain first. The console is a discreet link in the guest footer.
+**The root is the demo link.** It opens the guest portal with all fourteen
+services, so the bare domain is what you send — no landing page, no QR, nothing
+to explain first. The console is a discreet link in the guest footer.
+
+**The guest buys a service, not a person.** Providers are the agency's business:
+the guest sees an icon, the job and the price, and everything is arranged and
+confirmed by the managing company. Names, faces and first-person copy exist only
+in the console, where the agency needs them.
+
+**The stay itself is not in the system.** No dates, no party size, nothing
+prefilled from a booking — the portal opens on a property and a name, and date
+fields are free from today onwards.
 
 Other stays: `/s/ca-del-porto-0108`, `/s/casa-oliva-0815`. Any token that does
 not resolve shows the expired-link screen rather than a 404.
@@ -81,12 +90,14 @@ React 19 + Vite + Tailwind v4 + TypeScript, one repo, no backend.
 ```
 src/lib/types.ts     Property, Stay, Provider, Service, Request
 src/lib/seed.ts      the agency, 3 properties, 3 stays, 10 providers, 14 services
+src/components/ServiceIcon.tsx  the icon set — one mark per service, no photos
 src/lib/pricing.ts   one estimator for every service; live sheet estimates
 src/lib/storage.ts   localStorage where it exists, memory where it doesn't
 src/lib/store.ts     the shared store, with cross-tab sync
 src/routes/          GuestPortal (and the expired screen), Agency
 src/components/      ServiceCard, RequestSheet, Sheet, FieldInput, RequestsTray,
-                     ProviderSlot, StatusDots, ResetDemo
+                     ServiceIcon, ProviderSlot (console only), StatusDots,
+                     BrandBar, ResetDemo
 ```
 
 **Services are data, not code.** Each service carries a `fieldSchema`, and the
@@ -152,6 +163,14 @@ No shadows anywhere except the focus ring: depth is paper on the cream ground. M
 - **Get guest link** copies and confirms inline, as designed.
 - **No pitch screen and no QR code.** The demo is a link that is sent, not a
   screen that is scanned, so the root is the guest portal itself.
+- **No providers on the guest side.** The design puts a named, photographed
+  provider on every card; the product does not work that way — the agency
+  arranges the people — so the guest gets a service icon and the agency's
+  guarantee instead, and the provider block in the request sheet became a line
+  about who arranges and checks the work.
+- **No stay details.** The design's date captions on the phase bands, the party
+  line under the headline, and every field prefilled from the booking are gone,
+  because that data is not in the system.
 - **Prototype navigation** is a small demo line in the guest footer and a
   *Guest view* link in the console. The design has no nav chrome because each
   screen was drawn in isolation.
@@ -162,10 +181,9 @@ No shadows anywhere except the focus ring: depth is paper on the cream ground. M
 
 ## Before showing this to a real agency
 
-- **Provider photos** come from a placeholder portrait service and fall back to
-  the designed monogram if they don't load. Drop real portraits into
-  `public/providers/` and point `provider.photo` at them — the faces are the
-  pitch.
+- **Provider photos** appear only in the console's provider list and come from a
+  placeholder portrait service, falling back to a monogram. Swap in real
+  portraits, or drop the photo column entirely.
 - **Prices** (babysitting €18–20/hour, chef €65/head, Verona transfer €120,
   mid-stay clean €70) are plausible for Garda in August; check them against what
   the agency knows before the meeting.

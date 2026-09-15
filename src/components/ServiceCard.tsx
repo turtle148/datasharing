@@ -1,24 +1,22 @@
-import ProviderSlot from './ProviderSlot'
+import ServiceIcon from './ServiceIcon'
 import StatusDots from './StatusDots'
 import { headlinePrice } from '../lib/pricing'
-import { requestedSlot, statusLabel, statusNote } from '../lib/status'
+import { guestStatusLabel, guestStatusNote, requestedSlot } from '../lib/status'
 import { cancelRequest } from '../lib/store'
-import type { Provider, Service, ServiceRequest } from '../lib/types'
+import type { Service, ServiceRequest } from '../lib/types'
 
 export default function ServiceCard({
   service,
-  provider,
   request,
   onOpen,
 }: {
   service: Service
-  provider: Provider
   request?: ServiceRequest
   onOpen: () => void
 }) {
   const live = request && request.status !== 'cancelled' ? request : undefined
   const cancellable = live?.status === 'requested' || live?.status === 'confirmed'
-  const note = live ? statusNote(live, provider) : ''
+  const note = live ? guestStatusNote(live) : ''
 
   return (
     <article
@@ -37,7 +35,7 @@ export default function ServiceCard({
           <div className="flex items-center">
             <StatusDots status={live.status} />
             <span className="ml-1 text-[15px] font-semibold">
-              {statusLabel(live, service, provider)}
+              {guestStatusLabel(live, service)}
             </span>
           </div>
           {note && <p className="mt-1.5 text-[14px] text-deep/60">{note}</p>}
@@ -45,18 +43,16 @@ export default function ServiceCard({
       )}
 
       <div className="p-4">
-        <button type="button" onClick={onOpen} className="block w-full cursor-pointer text-left">
-          <h3 className="text-[17px] leading-[1.35] font-medium tracking-[-0.01em]">
-            {service.title}
-          </h3>
-
-          <div className="mt-3 flex items-start gap-2.5">
-            <ProviderSlot provider={provider} size={36} />
-            <div className="min-w-0">
-              <p className="text-[15px] leading-[1.3] font-semibold">{provider.firstName}</p>
-              <p className="text-[14px] leading-[1.3] text-deep/55">{provider.role}</p>
-            </div>
-          </div>
+        <button type="button" onClick={onOpen} className="flex w-full cursor-pointer gap-3 text-left">
+          <ServiceIcon name={service.icon} />
+          <span className="min-w-0">
+            <span className="block text-[17px] leading-[1.35] font-medium tracking-[-0.01em]">
+              {service.title}
+            </span>
+            <span className="mt-1 block text-[14px] leading-[1.35] text-deep/55">
+              {service.summary}
+            </span>
+          </span>
         </button>
 
         <div className="mt-3.5 border-t border-deep/8" />

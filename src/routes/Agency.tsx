@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import BrandBar from '../components/BrandBar'
 import ProviderSlot from '../components/ProviderSlot'
 import ResetDemo from '../components/ResetDemo'
-import { formatDay, formatStayRange, money } from '../lib/format'
+import { formatDay, money } from '../lib/format'
 import { guestUrl } from '../lib/links'
 import { commission } from '../lib/pricing'
 import { advanceLabel, requestedSlot, statusLabel } from '../lib/status'
@@ -346,11 +346,7 @@ function Properties() {
               <p className="text-[13px] font-semibold tracking-[0.12em] text-deep/60 uppercase">
                 In residence
               </p>
-              <p className="tnum mt-1 text-[15px]">
-                {stay
-                  ? `${stay.guestName} · ${formatStayRange(stay.arrival, stay.departure)}`
-                  : 'Empty this week'}
-              </p>
+              <p className="mt-1 text-[15px]">{stay ? stay.guestName : 'Empty this week'}</p>
             </div>
 
             <div>

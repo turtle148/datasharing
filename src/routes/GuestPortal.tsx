@@ -1,18 +1,10 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import BrandBar from '../components/BrandBar'
-import ProviderSlot from '../components/ProviderSlot'
 import RequestSheet from '../components/RequestSheet'
 import RequestsTray from '../components/RequestsTray'
 import ServiceCard from '../components/ServiceCard'
-import {
-  childAges,
-  formatStayRange,
-  partyLine,
-  phaseCaption,
-  phaseOrder,
-  phaseTitles,
-} from '../lib/format'
+import { phaseOrder, phaseTitles } from '../lib/format'
 import { data, useStayRequests } from '../lib/store'
 import type { Property, Service } from '../lib/types'
 
@@ -29,7 +21,6 @@ export default function GuestPortal({ token }: { token?: string }) {
 
   if (!stay || !property) return <ExpiredLink />
 
-  const provider = (id: string) => data.providers.find((p) => p.id === id)!
   const latestFor = (serviceId: string) =>
     [...requests].reverse().find((r) => r.serviceId === serviceId && r.status !== 'cancelled')
 
@@ -43,13 +34,13 @@ export default function GuestPortal({ token }: { token?: string }) {
           <h1 className="font-display text-[34px] leading-[1.1] tracking-[-0.01em]">
             Welcome, <em>{stay.guestName}</em>
           </h1>
-          <p className="tnum mt-2 text-[15px] text-deep/62">
-            {formatStayRange(stay.arrival, stay.departure)} · {partyLine(stay)}
-            {stay.children.length ? ` ${childAges(stay)}` : ''}
-          </p>
           <div className="mt-4 border-t border-deep/10" />
-          <p className="mt-4 text-[17px] leading-[1.5] text-deep/78">
-            Anything below can be arranged for you. Prices are final — no booking fees.
+          <p className="mt-4 text-[17px] leading-[1.5]">
+            Make your stay as easy and stress-free as possible.
+          </p>
+          <p className="mt-2 text-[17px] leading-[1.5] text-deep/78">
+            Anything below can be arranged for you, by the same people who look after the house.
+            Prices are final — no booking fees.
           </p>
         </header>
 
@@ -71,14 +62,12 @@ export default function GuestPortal({ token }: { token?: string }) {
                   <h2 className="text-[12.5px] font-semibold tracking-[0.14em] uppercase">
                     {phaseTitles[phase]}
                   </h2>
-                  <p className="tnum mt-0.5 text-[14px] text-deep/55">{phaseCaption(phase, stay)}</p>
 
                   <div className="mt-3 flex flex-col gap-3">
                     {services.map((service) => (
                       <ServiceCard
                         key={service.id}
                         service={service}
-                        provider={provider(service.providerId)}
                         request={latestFor(service.id)}
                         onOpen={() => setOpenService(service)}
                       />
@@ -104,7 +93,6 @@ export default function GuestPortal({ token }: { token?: string }) {
       {openService && (
         <RequestSheet
           service={openService}
-          provider={provider(openService.providerId)}
           stay={stay}
           onClose={() => setOpenService(null)}
           onSubmitted={() => setOpenService(null)}
@@ -139,9 +127,6 @@ export function DemoNav({ className = '' }: { className?: string }) {
 }
 
 function ExpiredLink() {
-  const chiara = data.providers.find((p) => p.id === 'chiara')!
-  const brandt = data.stays[0]
-
   return (
     <div className="min-h-dvh bg-stone">
       <BrandBar />
@@ -158,28 +143,22 @@ function ExpiredLink() {
           This link has ended
         </h1>
         <p className="text-[17px] leading-[1.5] text-deep/70">
-          It covered {brandt.guestName}'s stay, {formatStayRange(brandt.arrival, brandt.departure)}.
-          Nothing can be requested through it now.
+          It covered a stay that is over, so nothing can be requested through it now.
         </p>
 
         <div className="rounded-card border border-deep/10 bg-paper p-4">
           <p className="text-[13px] font-semibold tracking-[0.08em] text-deep/60 uppercase">
-            Still the person to ask
+            Still the people to ask
           </p>
-          <div className="mt-3 flex items-start gap-3">
-            <ProviderSlot provider={chiara} size={44} />
-            <div>
-              <p className="text-[15px] font-semibold">{chiara.firstName}</p>
-              <p className="text-[14px] text-deep/55">{chiara.role}</p>
-            </div>
-          </div>
+          <p className="mt-2 text-[17px] leading-[1.4]">{data.agency.name}</p>
+          <p className="text-[14px] text-deep/55">{data.agency.town}</p>
           <a
-            href="https://wa.me/?text=Hello%20Chiara"
+            href="https://wa.me/"
             target="_blank"
             rel="noreferrer"
             className="mt-4 block rounded-control border border-water/40 px-4 py-3.5 text-center text-[17px] font-semibold text-water"
           >
-            Message {chiara.firstName}
+            Message {data.agency.shortName}
           </a>
         </div>
 

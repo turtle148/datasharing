@@ -1,4 +1,5 @@
 import { formatDay, formatTime } from './format'
+import { agency } from './seed'
 import type { Provider, Service, ServiceRequest } from './types'
 
 /** The date and time the guest asked for, read back out of their answers. */
@@ -11,13 +12,31 @@ export function requestedSlot(request: ServiceRequest, service: Service): string
   return time ? `${formatDay(date)}, ${formatTime(time)}` : formatDay(date)
 }
 
-/** The line under the status label, in the provider's own terms. */
-export function statusNote(request: ServiceRequest, provider: Provider): string {
+/**
+ * The guest deals with the agency, never with the provider directly, so
+ * nothing on their side is signed with a name.
+ */
+export function guestStatusLabel(request: ServiceRequest, service: Service): string {
   switch (request.status) {
     case 'requested':
-      return `${provider.firstName} will confirm before anything is charged`
+      return 'Requested'
     case 'confirmed':
-      return provider.confirmedNote
+      return 'Confirmed'
+    case 'scheduled': {
+      const slot = request.scheduledFor || requestedSlot(request, service)
+      return slot ? `Scheduled for ${slot}` : 'Scheduled'
+    }
+    case 'cancelled':
+      return 'Cancelled'
+  }
+}
+
+export function guestStatusNote(request: ServiceRequest): string {
+  switch (request.status) {
+    case 'requested':
+      return `${agency.shortName} will confirm before anything is charged`
+    case 'confirmed':
+      return `${agency.shortName} will confirm a time with you`
     default:
       return ''
   }
