@@ -16,7 +16,7 @@ export const properties: Property[] = [
     address: 'Via delle Limonaie 12, 25080 Manerba del Garda BS',
     agencyId: 'lago-verde',
     heroColor: '#1A5049',
-    servicesOn: 14,
+    servicesOn: 10,
   },
   {
     id: 'ca-del-porto',
@@ -25,7 +25,7 @@ export const properties: Property[] = [
     address: 'Via Porto 3, 25080 Moniga del Garda BS',
     agencyId: 'lago-verde',
     heroColor: '#0E2622',
-    servicesOn: 12,
+    servicesOn: 8,
   },
   {
     id: 'casa-oliva',
@@ -34,7 +34,7 @@ export const properties: Property[] = [
     address: 'Via Belvedere 7, 25080 Padenghe sul Garda BS',
     agencyId: 'lago-verde',
     heroColor: '#2A5F6E',
-    servicesOn: 14,
+    servicesOn: 10,
   },
 ]
 
@@ -104,17 +104,6 @@ export const providers: Provider[] = [
     confirmedNote: 'Anna will confirm which morning suits the house',
   },
   {
-    id: 'luca',
-    firstName: 'Luca',
-    role: 'skippers his own boat, Moniga del Garda',
-    town: 'Moniga del Garda',
-    photo: portrait('men', 12),
-    blurb:
-      'We leave from Moniga, swim off San Biagio where the water is shallow enough for small children, and I have life jackets in every size on board.',
-    verified: ['ID', 'skipper licence', 'boat insurance', 'references'],
-    confirmedNote: 'Luca will confirm the boat and check the forecast the day before',
-  },
-  {
     id: 'sofia',
     firstName: 'Sofia',
     role: 'babysits, English and German, Padenghe sul Garda',
@@ -136,28 +125,6 @@ export const providers: Provider[] = [
     verified: ['ID', 'insurance', 'references'],
     confirmedNote: 'Chiara will confirm what time she can meet you',
   },
-  {
-    id: 'davide',
-    firstName: 'Davide',
-    role: 'makes wine in the Valtènesi, Moniga del Garda',
-    town: 'Moniga del Garda',
-    photo: portrait('men', 78),
-    blurb:
-      'I bring four wines from our own vines — the Chiaretto is made here in Moniga, ten minutes from your door — with cheese and salumi to go with them.',
-    verified: ['ID', 'insurance', 'references'],
-    confirmedNote: 'Davide will confirm the evening and which wines to bring',
-  },
-  {
-    id: 'francesca',
-    firstName: 'Francesca',
-    role: 'massage therapist, Salò',
-    town: 'Salò',
-    photo: portrait('women', 5),
-    blurb:
-      'I bring the table, the oils and quiet music. On the terrace at the end of the afternoon is what most people choose.',
-    verified: ['ID', 'professional registration', 'insurance', 'references'],
-    confirmedNote: 'Francesca will confirm a time to set the table up',
-  },
 ]
 
 const notes = (label: string, placeholder: string) => ({
@@ -177,7 +144,7 @@ export const services: Service[] = [
     summary: 'Your first shop done before you walk in the door.',
     phase: 'before_arrival',
     priceModel: 'fixed',
-    priceValue: 45,
+    priceValue: 30,
     priceNote: '+ the cost of the shopping',
     leadTime: 'Order by 6pm the day before',
     description:
@@ -243,37 +210,6 @@ export const services: Service[] = [
     ],
     scheduleFields: { date: 'date', time: 'time' },
   },
-  {
-    id: 'welcome-host',
-    providerId: 'chiara',
-    title: 'Shown round the house when you arrive',
-    icon: 'key',
-    summary: 'Someone meets you, shows you how the house works, and stays reachable.',
-    phase: 'before_arrival',
-    priceModel: 'fixed',
-    priceValue: 40,
-    priceNote: 'for the whole stay',
-    leadTime: 'Order by 6pm the day before',
-    description:
-      "You are met at the house and shown how everything works, and you keep a number to call for the rest of the week. Anything you need set up before you arrive, tell us here.",
-    fieldSchema: [
-      { id: 'date', type: 'date', label: 'Which day', range: 'stay', required: true },
-      {
-        id: 'setup',
-        type: 'checkboxes',
-        label: 'Anything to set up before you arrive?',
-        options: [
-          { value: 'cot', label: 'Travel cot' },
-          { value: 'high_chair', label: 'High chair' },
-          { value: 'stair_gate', label: 'Stair gate' },
-          { value: 'bath', label: 'Baby bath' },
-          { value: 'buggy', label: 'Buggy', priceDelta: 15 },
-        ],
-      },
-      notes('Anything else?', 'The stair gate is for the steps down to the garden.'),
-    ],
-    scheduleFields: { date: 'date' },
-  },
 
   // ── Your first evening ───────────────────────────────────────────────────
   {
@@ -286,7 +222,6 @@ export const services: Service[] = [
     priceModel: 'per_person',
     priceValue: 65,
     unit: 'adult',
-    priceNote: 'per adult',
     leadTime: 'Book at least 48 hours ahead',
     description:
       "Dinner is cooked in your own kitchen and the kitchen is cleaned before anyone leaves — lake fish, a pasta the children will actually eat, and something for the adults. You stay at the table.",
@@ -457,81 +392,6 @@ export const services: Service[] = [
       notes('Anything delicate?', 'One dress that should be hung up, not folded.'),
     ],
     scheduleFields: { date: 'date' },
-  },
-  {
-    id: 'boat',
-    providerId: 'luca',
-    title: 'An afternoon on the lake with a skipper',
-    icon: 'boat',
-    summary: 'Out from Moniga, swimming off San Biagio.',
-    phase: 'during_stay',
-    priceModel: 'from',
-    priceValue: 280,
-    priceNote: 'half day, up to 7 people',
-    leadTime: 'Book at least 24 hours ahead',
-    description:
-      "A skippered boat leaves from Moniga and anchors off San Biagio, where the water is shallow enough for small children. Life jackets in every size are on board.",
-    fieldSchema: [
-      { id: 'date', type: 'date', label: 'Which day', range: 'stay', required: true },
-      {
-        id: 'length',
-        type: 'select',
-        label: 'How long',
-        options: [
-          { value: 'half_pm', label: 'Afternoon, 2 – 6' },
-          { value: 'half_am', label: 'Morning, 9 – 1' },
-          { value: 'full', label: 'Full day, 9 – 6', priceDelta: 190 },
-        ],
-      },
-      { id: 'people', type: 'stepper', label: 'How many of you', min: 1, max: 9, defaultValue: 4, pricePerUnit: 30, freeUnits: 7 },
-      notes('Anything else?', 'Two of us would like to try the paddleboard.'),
-    ],
-    scheduleFields: { date: 'date' },
-  },
-  {
-    id: 'wine',
-    providerId: 'davide',
-    title: 'Valtènesi wines tasted at your table',
-    icon: 'bottle',
-    summary: 'Four wines from the hills behind the house.',
-    phase: 'during_stay',
-    priceModel: 'per_person',
-    priceValue: 30,
-    unit: 'person',
-    priceNote: 'per person',
-    leadTime: 'Book at least 24 hours ahead',
-    description:
-      "Four wines from the Valtènesi — the Chiaretto is made in Moniga, ten minutes from your door — brought to your table with cheese and salumi to go with them.",
-    multiplierFields: ['people'],
-    minMultiplier: 4,
-    fieldSchema: [
-      { id: 'date', type: 'date', label: 'Which evening', range: 'stay', required: true, half: true },
-      { id: 'time', type: 'time', label: 'Start at', required: true, half: true },
-      { id: 'people', type: 'stepper', label: 'How many tasting', min: 4, max: 12 },
-      notes('Anything else?', 'We would like to buy a case to take home.'),
-    ],
-    scheduleFields: { date: 'date', time: 'time' },
-  },
-  {
-    id: 'massage',
-    providerId: 'francesca',
-    title: 'A massage on the terrace',
-    icon: 'leaf',
-    summary: 'Table, oils and quiet music brought to the house.',
-    phase: 'during_stay',
-    priceModel: 'fixed',
-    priceValue: 80,
-    priceNote: '60 minutes, at the house',
-    leadTime: 'Book at least 24 hours ahead',
-    description:
-      "The table, the oils and the music are brought to the house. On the terrace at the end of the afternoon is what most people choose.",
-    fieldSchema: [
-      { id: 'date', type: 'date', label: 'Which day', range: 'stay', required: true, half: true },
-      { id: 'time', type: 'time', label: 'Start at', required: true, half: true },
-      { id: 'people', type: 'stepper', label: 'How many massages', min: 1, max: 4, pricePerUnit: 80, freeUnits: 1 },
-      notes('Anything we should know?', 'A bad shoulder on the right side.'),
-    ],
-    scheduleFields: { date: 'date', time: 'time' },
   },
 
   // ── Before you leave ─────────────────────────────────────────────────────

@@ -17,8 +17,8 @@ server. Everything is seeded data held in the browser.
 | `/s/:stayToken` | the guest, on their phone (390px) | browse and request services |
 | `/agency` | the agency, on a laptop (1440px) | requests arriving, revenue share |
 
-**The root is the demo link.** It opens the guest portal with all fourteen
-services, so the bare domain is what you send — no landing page, no QR, nothing
+**The root is the demo link.** It opens the guest portal with every service the
+house offers, so the bare domain is what you send — no landing page, no QR, nothing
 to explain first. The console is a discreet link in the guest footer.
 
 **The guest buys a service, not a person.** Providers are the agency's business:
@@ -89,7 +89,7 @@ React 19 + Vite + Tailwind v4 + TypeScript, one repo, no backend.
 
 ```
 src/lib/types.ts     Property, Stay, Provider, Service, Request
-src/lib/seed.ts      the agency, 3 properties, 3 stays, 10 providers, 14 services
+src/lib/seed.ts      the agency, 3 properties, 3 stays, 7 providers, 10 services
 src/components/ServiceIcon.tsx  the icon set — one mark per service, no photos
 src/lib/pricing.ts   one estimator for every service; live sheet estimates
 src/lib/storage.ts   localStorage where it exists, memory where it doesn't
@@ -185,9 +185,9 @@ No shadows anywhere except the focus ring: depth is paper on the cream ground. M
 - **Provider photos** appear only in the console's provider list and come from a
   placeholder portrait service, falling back to a monogram. Swap in real
   portraits, or drop the photo column entirely.
-- **Prices** (babysitting €18–20/hour, chef €65/head, Verona transfer €120,
-  mid-stay clean €70) are plausible for Garda in August; check them against what
-  the agency knows before the meeting.
+- **Prices** (shopping €30 plus the bill, babysitting €18–20/hour, chef €65 a
+  head, Verona transfer €120, mid-stay clean €70) are plausible for Garda;
+  check them against what the agency knows before the meeting.
 - **Names** — the agency, providers and guests are invented. In the demo Otiara
   is the platform and *Lago Verde Property Management* is the customer agency.
 
