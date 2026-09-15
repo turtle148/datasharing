@@ -1,20 +1,5 @@
 import type { Agency, Property, Provider, SeedData, Service, Stay } from './types'
 
-/**
- * The seed stays are written as real August dates so the copy reads right
- * ("4 – 11 August"). The year rolls forward once the season has passed, so the
- * demo never opens on a stay that already happened.
- */
-export function seasonYear(today = new Date()): number {
-  const y = today.getFullYear()
-  const seasonOver = today.getMonth() > 7 || (today.getMonth() === 7 && today.getDate() > 15)
-  return seasonOver ? y + 1 : y
-}
-
-const Y = seasonYear()
-const d = (month: number, day: number) =>
-  `${Y}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`
-
 export const agency: Agency = {
   id: 'lago-verde',
   name: 'Lago Verde Property Management',
@@ -54,36 +39,9 @@ export const properties: Property[] = [
 ]
 
 export const stays: Stay[] = [
-  {
-    token: 'villa-serena-0811',
-    propertyId: 'villa-serena',
-    guestName: 'the Brandt family',
-    arrival: d(8, 4),
-    departure: d(8, 11),
-    adults: 2,
-    children: [{ age: 4 }, { age: 7 }],
-    language: 'de',
-  },
-  {
-    token: 'ca-del-porto-0108',
-    propertyId: 'ca-del-porto',
-    guestName: 'the Van Dijk family',
-    arrival: d(8, 1),
-    departure: d(8, 8),
-    adults: 4,
-    children: [],
-    language: 'nl',
-  },
-  {
-    token: 'casa-oliva-0815',
-    propertyId: 'casa-oliva',
-    guestName: 'the Laurent family',
-    arrival: d(8, 8),
-    departure: d(8, 15),
-    adults: 2,
-    children: [{ age: 9 }],
-    language: 'fr',
-  },
+  { token: 'villa-serena-0811', propertyId: 'villa-serena' },
+  { token: 'ca-del-porto-0108', propertyId: 'ca-del-porto' },
+  { token: 'casa-oliva-0815', propertyId: 'casa-oliva' },
 ]
 
 const portrait = (sex: 'women' | 'men', n: number) =>

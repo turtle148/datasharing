@@ -18,9 +18,9 @@ const tabs: { id: Tab; label: string }[] = [
   { id: 'providers', label: 'Providers' },
 ]
 
-/** Guest · Property · Service · Provider · Requested for · Value · Share · Status · action */
+/** Property · Service · Provider · Requested for · Value · Share · Status · action */
 const columns =
-  'grid-cols-[108px_92px_minmax(220px,1fr)_80px_112px_62px_74px_140px_116px] gap-3'
+  'grid-cols-[140px_minmax(240px,1fr)_80px_112px_62px_74px_140px_116px] gap-3'
 
 export default function Agency() {
   const [tab, setTab] = useState<Tab>('requests')
@@ -185,12 +185,11 @@ function RequestTable({ requests }: { requests: ServiceRequest[] }) {
 
   return (
     <div className="overflow-x-auto rounded-card border border-deep/10 bg-paper">
-      <div role="table" className="min-w-[1014px]">
+      <div role="table" className="min-w-[1048px]">
         <div
           role="row"
           className={`grid ${columns} border-b border-deep/10 px-5 py-3 text-[13px] font-semibold tracking-[0.08em] text-deep/55 uppercase`}
         >
-          <span role="columnheader">Guest</span>
           <span role="columnheader">Property</span>
           <span role="columnheader">Service</span>
           <span role="columnheader">Provider</span>
@@ -235,10 +234,7 @@ function RequestTable({ requests }: { requests: ServiceRequest[] }) {
                 }}
                 className={`grid ${columns} cursor-pointer items-center border-b border-deep/8 px-5 py-4 text-[15px] hover:bg-rowfill`}
               >
-                <span role="cell">{stay.guestName}</span>
-                <span role="cell" className="text-deep/70">
-                  {property.name}
-                </span>
+                <span role="cell">{property.name}</span>
                 <span role="cell">{service.title}</span>
                 <span role="cell" className="text-deep/70">
                   {provider.firstName}
@@ -344,9 +340,9 @@ function Properties() {
 
             <div>
               <p className="text-[13px] font-semibold tracking-[0.12em] text-deep/60 uppercase">
-                In residence
+                Guest link
               </p>
-              <p className="mt-1 text-[15px]">{stay ? stay.guestName : 'Empty this week'}</p>
+              <p className="mt-1 text-[15px]">{stay ? 'Live for this stay' : 'Not set up'}</p>
             </div>
 
             <div>

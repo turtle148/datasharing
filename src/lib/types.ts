@@ -26,15 +26,9 @@ export interface Property {
 }
 
 export interface Stay {
+  /** the opaque token in the guest link — the link is the credential */
   token: string
   propertyId: string
-  guestName: string
-  /** ISO date, YYYY-MM-DD */
-  arrival: string
-  departure: string
-  adults: number
-  children: { age: number }[]
-  language: string
 }
 
 export interface Provider {

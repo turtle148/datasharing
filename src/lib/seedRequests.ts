@@ -13,7 +13,7 @@ export const seedRequests: ServiceRequest[] = [
     stayToken: oliva.token,
     serviceId: 'groceries',
     fields: {
-      date: oliva.arrival,
+      date: inDays(11),
       people: 3,
       needs: ['milk_bread', 'fruit', 'coffee'],
       notes: 'Something for a 9-year-old who only eats plain things. No nuts.',
@@ -28,7 +28,7 @@ export const seedRequests: ServiceRequest[] = [
     serviceId: 'transfer-in',
     fields: {
       pickup: 'vrn',
-      date: oliva.arrival,
+      date: inDays(11),
       time: '14:35',
       flight: 'AF 1214',
       car_seats: 1,
@@ -43,7 +43,7 @@ export const seedRequests: ServiceRequest[] = [
     stayToken: porto.token,
     serviceId: 'boat',
     fields: {
-      date: addDays(porto.arrival, 3),
+      date: inDays(6),
       length: 'half_pm',
       people: 4,
       notes: 'We would like to swim somewhere quiet rather than see towns.',
@@ -57,7 +57,7 @@ export const seedRequests: ServiceRequest[] = [
     stayToken: porto.token,
     serviceId: 'chef-dinner',
     fields: {
-      date: addDays(porto.arrival, 2),
+      date: inDays(5),
       time: '20:00',
       adults: 4,
       children: 0,
@@ -73,7 +73,7 @@ export const seedRequests: ServiceRequest[] = [
     stayToken: oliva.token,
     serviceId: 'mid-clean',
     fields: {
-      date: addDays(oliva.arrival, 3),
+      date: inDays(14),
       window: 'morning',
       notes: 'The children nap in the small bedroom until 10.',
     },
@@ -89,8 +89,9 @@ function daysAgo(n: number): string {
   return d.toISOString()
 }
 
-function addDays(iso: string, n: number): string {
-  const [y, m, day] = iso.split('-').map(Number)
-  const d = new Date(y, m - 1, day + n, 12)
+/** Seed requests sit a week or two out, so the demo never opens on a past date. */
+function inDays(n: number): string {
+  const d = new Date()
+  d.setDate(d.getDate() + n)
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
 }

@@ -32,7 +32,7 @@ export default function GuestPortal({ token }: { token?: string }) {
       <main className="mx-auto max-w-[480px] px-4">
         <header className="pt-6">
           <h1 className="font-display text-[34px] leading-[1.1] tracking-[-0.01em]">
-            Welcome, <em>{stay.guestName}</em>
+            Welcome to <em>{property.name}</em>
           </h1>
           <div className="mt-4 border-t border-deep/10" />
           <p className="mt-4 text-[17px] leading-[1.5]">
@@ -107,7 +107,7 @@ function PropertyBar({ property }: { property: Property }) {
     <div className="border-b border-deep/10 bg-paper">
       <div className="mx-auto max-w-[480px] px-4 pt-3.5 pb-3">
         <p className="text-[12.5px] tracking-[0.14em] text-water uppercase">
-          {property.name} · {property.town}
+          {property.town}
         </p>
       </div>
     </div>
@@ -133,7 +133,7 @@ function ExpiredLink() {
       <div className="border-b border-deep/10 bg-paper">
         <div className="mx-auto max-w-[480px] px-4 pt-3.5 pb-3">
           <p className="text-[12.5px] tracking-[0.14em] text-water uppercase">
-            {data.properties[0].name} · {data.properties[0].town}
+            {data.properties[0].town}
           </p>
         </div>
       </div>

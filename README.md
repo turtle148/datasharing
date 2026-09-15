@@ -13,7 +13,7 @@ server. Everything is seeded data held in the browser.
 
 | Route | Who sees it | Job |
 | --- | --- | --- |
-| `/` | whoever you send the demo link to | the guest portal for the Brandt family's stay |
+| `/` | whoever you send the demo link to | the guest portal for Villa Serena |
 | `/s/:stayToken` | the guest, on their phone (390px) | browse and request services |
 | `/agency` | the agency, on a laptop (1440px) | requests arriving, revenue share |
 
@@ -26,9 +26,10 @@ the guest sees an icon, the job and the price, and everything is arranged and
 confirmed by the managing company. Names, faces and first-person copy exist only
 in the console, where the agency needs them.
 
-**The stay itself is not in the system.** No dates, no party size, nothing
-prefilled from a booking — the portal opens on a property and a name, and date
-fields are free from today onwards.
+**The stay itself is not in the system.** No dates, no party size, no guest
+name — a `Stay` is only a token and a property. The portal greets the house
+("Welcome to Villa Serena"), the console lists requests by property rather than
+by guest, and date fields run free from today onwards.
 
 Other stays: `/s/ca-del-porto-0108`, `/s/casa-oliva-0815`. Any token that does
 not resolve shows the expired-link screen rather than a 404.
@@ -67,8 +68,7 @@ survives moving between routes but not a reload.
 
 ## Running the demo
 
-1. Send the link. It opens on Villa Serena with the Brandt family's name and
-   dates already on it.
+1. Send the link. It opens on Villa Serena with every service the house offers.
 2. They tap **Fridge stocked before you arrive**, set the day and who is eating,
    and hit **Request this**. The card takes the requested state in place and the
    tray at the bottom counts up.
@@ -169,8 +169,9 @@ No shadows anywhere except the focus ring: depth is paper on the cream ground. M
   guarantee instead, and the provider block in the request sheet became a line
   about who arranges and checks the work.
 - **No stay details.** The design's date captions on the phase bands, the party
-  line under the headline, and every field prefilled from the booking are gone,
-  because that data is not in the system.
+  line under the headline, the guest's name in the greeting and in the console's
+  first column, and every field prefilled from the booking are gone, because
+  that data is not in the system.
 - **Prototype navigation** is a small demo line in the guest footer and a
   *Guest view* link in the console. The design has no nav chrome because each
   screen was drawn in isolation.
